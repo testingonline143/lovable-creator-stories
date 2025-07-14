@@ -116,14 +116,20 @@ export function DashboardSidebar({ onSignOut, creator }: DashboardSidebarProps) 
             <SidebarMenu>
               {mainMenuItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <NavLink to={item.url} className={({ isActive }) => 
-                      `flex items-center gap-3 rounded-lg px-3 py-2 transition-colors !important ${
-                        isActive 
-                          ? 'bg-primary text-white font-semibold' 
-                          : 'text-gray-200 hover:text-white hover:bg-gray-700/50'
-                      }`
-                    }>
+                  <SidebarMenuButton 
+                    asChild 
+                    className="hover:bg-gray-700 hover:text-white data-[state=open]:bg-gray-700 data-[state=open]:text-white"
+                  >
+                    <NavLink 
+                      to={item.url} 
+                      className={({ isActive }) => 
+                        `flex items-center gap-3 rounded-lg px-3 py-2 transition-colors ${
+                          isActive 
+                            ? 'bg-primary text-white font-semibold' 
+                            : 'text-gray-200'
+                        }`
+                      }
+                    >
                       <item.icon className="h-4 w-4" />
                       {!isCollapsed && <span>{item.title}</span>}
                     </NavLink>
@@ -142,14 +148,20 @@ export function DashboardSidebar({ onSignOut, creator }: DashboardSidebarProps) 
               <SidebarMenu>
                 {quickActions.map((item) => (
                   <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton asChild>
-                      <NavLink to={item.url} className={({ isActive }) => 
-                        `flex items-center gap-3 rounded-lg px-3 py-2 transition-colors !important ${
-                          isActive 
-                            ? 'bg-primary text-white font-semibold' 
-                            : 'text-gray-200 hover:text-white hover:bg-gray-700/50'
-                        }`
-                      }>
+                    <SidebarMenuButton 
+                      asChild 
+                      className="hover:bg-gray-700 hover:text-white data-[state=open]:bg-gray-700 data-[state=open]:text-white"
+                    >
+                      <NavLink 
+                        to={item.url} 
+                        className={({ isActive }) => 
+                          `flex items-center gap-3 rounded-lg px-3 py-2 transition-colors ${
+                            isActive 
+                              ? 'bg-primary text-white font-semibold' 
+                              : 'text-gray-200'
+                          }`
+                        }
+                      >
                         <item.icon className="h-4 w-4" />
                         <span>{item.title}</span>
                       </NavLink>
@@ -165,22 +177,28 @@ export function DashboardSidebar({ onSignOut, creator }: DashboardSidebarProps) 
         <div className="mt-auto p-4 border-t border-border">
           <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarMenuButton asChild>
-                <NavLink to="/dashboard/settings" className={({ isActive }) => 
-                  `flex items-center gap-3 rounded-lg px-3 py-2 transition-colors !important ${
-                    isActive 
-                      ? 'bg-primary text-white font-semibold' 
-                      : 'text-gray-200 hover:text-white hover:bg-gray-700/50'
-                  }`
-                }>
+              <SidebarMenuButton 
+                asChild 
+                className="hover:bg-gray-700 hover:text-white data-[state=open]:bg-gray-700 data-[state=open]:text-white"
+              >
+                <NavLink 
+                  to="/dashboard/settings" 
+                  className={({ isActive }) => 
+                    `flex items-center gap-3 rounded-lg px-3 py-2 transition-colors ${
+                      isActive 
+                        ? 'bg-primary text-white font-semibold' 
+                        : 'text-gray-200'
+                    }`
+                  }
+                >
                   <Settings className="h-4 w-4" />
                   {!isCollapsed && <span>Settings</span>}
                 </NavLink>
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton asChild>
-                <button onClick={onSignOut} className="flex items-center gap-3 rounded-lg px-3 py-2 transition-colors text-gray-200 hover:text-white hover:bg-gray-700/50 w-full text-left">
+              <SidebarMenuButton className="hover:bg-gray-700 hover:text-white data-[state=open]:bg-gray-700 data-[state=open]:text-white">
+                <button onClick={onSignOut} className="flex items-center gap-3 rounded-lg px-3 py-2 transition-colors text-gray-200 w-full text-left">
                   <LogOut className="h-4 w-4" />
                   {!isCollapsed && <span>Sign Out</span>}
                 </button>
