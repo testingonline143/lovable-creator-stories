@@ -1,5 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { successStories } from "@/data/stories";
+import { usePageView } from "@/hooks/useAnalytics";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -9,6 +10,12 @@ import Header from "@/components/Header";
 const SuccessStory = () => {
   const { storyId } = useParams();
   const story = successStories.find(s => s.id === storyId);
+  
+  // Track page view
+  usePageView({ 
+    page_type: 'story', 
+    resource_id: story?.id 
+  });
 
   if (!story) {
     return (

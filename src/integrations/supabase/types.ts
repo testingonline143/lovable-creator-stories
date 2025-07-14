@@ -86,6 +86,13 @@ export type Database = {
             foreignKeyName: "course_enrollments_course_id_fkey"
             columns: ["course_id"]
             isOneToOne: false
+            referencedRelation: "course_analytics"
+            referencedColumns: ["course_id"]
+          },
+          {
+            foreignKeyName: "course_enrollments_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
             referencedRelation: "courses"
             referencedColumns: ["id"]
           },
@@ -136,6 +143,13 @@ export type Database = {
             foreignKeyName: "course_reviews_course_id_fkey"
             columns: ["course_id"]
             isOneToOne: false
+            referencedRelation: "course_analytics"
+            referencedColumns: ["course_id"]
+          },
+          {
+            foreignKeyName: "course_reviews_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
             referencedRelation: "courses"
             referencedColumns: ["id"]
           },
@@ -168,6 +182,13 @@ export type Database = {
           user_id?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "course_wishlist_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "course_analytics"
+            referencedColumns: ["course_id"]
+          },
           {
             foreignKeyName: "course_wishlist_course_id_fkey"
             columns: ["course_id"]
@@ -276,6 +297,13 @@ export type Database = {
             foreignKeyName: "courses_creator_id_fkey"
             columns: ["creator_id"]
             isOneToOne: false
+            referencedRelation: "creator_analytics"
+            referencedColumns: ["creator_id"]
+          },
+          {
+            foreignKeyName: "courses_creator_id_fkey"
+            columns: ["creator_id"]
+            isOneToOne: false
             referencedRelation: "creators"
             referencedColumns: ["id"]
           },
@@ -356,6 +384,75 @@ export type Database = {
         }
         Relationships: []
       }
+      link_clicks: {
+        Row: {
+          country_code: string | null
+          created_at: string
+          id: string
+          ip_hash: string | null
+          link_type: string
+          link_url: string
+          resource_id: string | null
+          source_page: string
+          user_agent: string | null
+        }
+        Insert: {
+          country_code?: string | null
+          created_at?: string
+          id?: string
+          ip_hash?: string | null
+          link_type: string
+          link_url: string
+          resource_id?: string | null
+          source_page: string
+          user_agent?: string | null
+        }
+        Update: {
+          country_code?: string | null
+          created_at?: string
+          id?: string
+          ip_hash?: string | null
+          link_type?: string
+          link_url?: string
+          resource_id?: string | null
+          source_page?: string
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
+      page_views: {
+        Row: {
+          country_code: string | null
+          created_at: string
+          id: string
+          ip_hash: string | null
+          page_type: string
+          referrer: string | null
+          resource_id: string | null
+          user_agent: string | null
+        }
+        Insert: {
+          country_code?: string | null
+          created_at?: string
+          id?: string
+          ip_hash?: string | null
+          page_type: string
+          referrer?: string | null
+          resource_id?: string | null
+          user_agent?: string | null
+        }
+        Update: {
+          country_code?: string | null
+          created_at?: string
+          id?: string
+          ip_hash?: string | null
+          page_type?: string
+          referrer?: string | null
+          resource_id?: string | null
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string
@@ -413,6 +510,13 @@ export type Database = {
             foreignKeyName: "story_reviews_story_id_fkey"
             columns: ["story_id"]
             isOneToOne: false
+            referencedRelation: "story_analytics"
+            referencedColumns: ["story_id"]
+          },
+          {
+            foreignKeyName: "story_reviews_story_id_fkey"
+            columns: ["story_id"]
+            isOneToOne: false
             referencedRelation: "story_submissions"
             referencedColumns: ["id"]
           },
@@ -450,6 +554,13 @@ export type Database = {
           updated_at?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "story_sections_story_id_fkey"
+            columns: ["story_id"]
+            isOneToOne: false
+            referencedRelation: "story_analytics"
+            referencedColumns: ["story_id"]
+          },
           {
             foreignKeyName: "story_sections_story_id_fkey"
             columns: ["story_id"]
@@ -534,6 +645,13 @@ export type Database = {
             foreignKeyName: "story_submissions_creator_id_fkey"
             columns: ["creator_id"]
             isOneToOne: false
+            referencedRelation: "creator_analytics"
+            referencedColumns: ["creator_id"]
+          },
+          {
+            foreignKeyName: "story_submissions_creator_id_fkey"
+            columns: ["creator_id"]
+            isOneToOne: false
             referencedRelation: "creators"
             referencedColumns: ["id"]
           },
@@ -541,7 +659,74 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      course_analytics: {
+        Row: {
+          course_clicks: number | null
+          course_clicks_7d: number | null
+          course_id: string | null
+          course_title: string | null
+          creator_id: string | null
+          page_views: number | null
+          page_views_7d: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "courses_creator_id_fkey"
+            columns: ["creator_id"]
+            isOneToOne: false
+            referencedRelation: "creator_analytics"
+            referencedColumns: ["creator_id"]
+          },
+          {
+            foreignKeyName: "courses_creator_id_fkey"
+            columns: ["creator_id"]
+            isOneToOne: false
+            referencedRelation: "creators"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      creator_analytics: {
+        Row: {
+          contact_clicks: number | null
+          creator_id: string | null
+          creator_name: string | null
+          profile_views: number | null
+          profile_views_30d: number | null
+          profile_views_7d: number | null
+          social_clicks: number | null
+          total_clicks_30d: number | null
+          total_clicks_7d: number | null
+          website_clicks: number | null
+        }
+        Relationships: []
+      }
+      story_analytics: {
+        Row: {
+          creator_id: string | null
+          page_views: number | null
+          page_views_30d: number | null
+          page_views_7d: number | null
+          story_id: string | null
+          story_title: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "story_submissions_creator_id_fkey"
+            columns: ["creator_id"]
+            isOneToOne: false
+            referencedRelation: "creator_analytics"
+            referencedColumns: ["creator_id"]
+          },
+          {
+            foreignKeyName: "story_submissions_creator_id_fkey"
+            columns: ["creator_id"]
+            isOneToOne: false
+            referencedRelation: "creators"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Functions: {
       [_ in never]: never

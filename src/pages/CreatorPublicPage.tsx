@@ -1,6 +1,8 @@
 import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { usePageView } from "@/hooks/useAnalytics";
+import { AnalyticsTracker } from "@/components/AnalyticsTracker";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -30,6 +32,12 @@ const CreatorPublicPage = () => {
   const { creatorId } = useParams();
   const [creator, setCreator] = useState<Creator | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  
+  // Track page view
+  usePageView({ 
+    page_type: 'creator', 
+    resource_id: creatorId 
+  });
 
   useEffect(() => {
     const fetchCreator = async () => {
@@ -147,15 +155,33 @@ const CreatorPublicPage = () => {
 
           {/* Action Buttons */}
           <div className="flex gap-3">
-            <Button className="bg-gradient-to-r from-primary to-accent hover:opacity-90 text-sm px-6">
-              <MessageCircle className="mr-2 h-4 w-4" />
-              Contact
-            </Button>
-            {creator.website && (
-              <Button variant="outline" className="border-white/30 text-white hover:bg-white/10 text-sm px-6">
-                <ExternalLink className="mr-2 h-4 w-4" />
-                Visit Website
+            <AnalyticsTracker
+              linkType="contact"
+              linkUrl="contact"
+              sourcePage={`/creator/${creatorId}`}
+              resourceId={creator.id}
+            >
+              <Button className="bg-gradient-to-r from-primary to-accent hover:opacity-90 text-sm px-6">
+                <MessageCircle className="mr-2 h-4 w-4" />
+                Contact
               </Button>
+            </AnalyticsTracker>
+            {creator.website && (
+              <AnalyticsTracker
+                linkType="website"
+                linkUrl={creator.website}
+                sourcePage={`/creator/${creatorId}`}
+                resourceId={creator.id}
+              >
+                <Button 
+                  variant="outline" 
+                  className="border-white/30 text-white hover:bg-white/10 text-sm px-6"
+                  onClick={() => window.open(creator.website, '_blank')}
+                >
+                  <ExternalLink className="mr-2 h-4 w-4" />
+                  Visit Website
+                </Button>
+              </AnalyticsTracker>
             )}
           </div>
         </div>

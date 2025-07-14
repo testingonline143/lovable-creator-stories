@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
+import { usePageView } from "@/hooks/useAnalytics";
+import { AnalyticsTracker } from "@/components/AnalyticsTracker";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -86,6 +88,12 @@ const CourseDetail = () => {
   const [isEnrolled, setIsEnrolled] = useState(false);
   const [isInWishlist, setIsInWishlist] = useState(false);
   const { toast } = useToast();
+  
+  // Track page view when course is loaded
+  usePageView({ 
+    page_type: 'course', 
+    resource_id: course?.id 
+  });
 
   useEffect(() => {
     if (courseSlug) {
@@ -685,19 +693,33 @@ const CourseDetail = () => {
                       <CheckCircle className="h-8 w-8 text-green-600 mx-auto mb-2" />
                       <p className="text-green-700 font-semibold">You're enrolled!</p>
                       {course.course_url && (
-                        <Button className="w-full mt-3" asChild>
-                          <a href={course.course_url} target="_blank" rel="noopener noreferrer">
-                            Access Course
-                          </a>
-                        </Button>
+                        <AnalyticsTracker
+                          linkType="course_url"
+                          linkUrl={course.course_url}
+                          sourcePage={`/course/${courseSlug}`}
+                          resourceId={course.id}
+                        >
+                          <Button className="w-full mt-3" asChild>
+                            <a href={course.course_url} target="_blank" rel="noopener noreferrer">
+                              Access Course
+                            </a>
+                          </Button>
+                        </AnalyticsTracker>
                       )}
                     </div>
                   ) : (
                     <>
-                      <Button className="w-full" size="lg" onClick={handleEnroll}>
-                        <ShoppingCart className="mr-2 h-5 w-5" />
-                        Enroll Now
-                      </Button>
+                      <AnalyticsTracker
+                        linkType="course_url"
+                        linkUrl={course.course_url || '#'}
+                        sourcePage={`/course/${courseSlug}`}
+                        resourceId={course.id}
+                      >
+                        <Button className="w-full" size="lg" onClick={handleEnroll}>
+                          <ShoppingCart className="mr-2 h-5 w-5" />
+                          Enroll Now
+                        </Button>
+                      </AnalyticsTracker>
                       <Button
                         variant="outline"
                         className="w-full"
