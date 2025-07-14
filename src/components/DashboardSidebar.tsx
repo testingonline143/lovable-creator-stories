@@ -49,8 +49,8 @@ export function DashboardSidebar({ onSignOut, creator }: DashboardSidebarProps) 
   const getNavCls = ({ isActive }: { isActive: boolean }) =>
     `flex items-center gap-3 rounded-lg px-3 py-2 transition-colors ${
       isActive 
-        ? 'bg-primary text-primary-foreground' 
-        : 'text-slate-300 hover:text-white hover:bg-muted'
+        ? 'bg-primary text-white font-semibold' 
+        : 'text-gray-200 hover:text-white hover:bg-white/10'
     }`;
 
   const mainMenuItems = [
@@ -80,7 +80,7 @@ export function DashboardSidebar({ onSignOut, creator }: DashboardSidebarProps) 
             {!isCollapsed && (
               <div className="flex-1">
                 <h2 className="text-lg font-bold text-white">CreatorStory</h2>
-                <p className="text-xs text-slate-400">Creator Dashboard</p>
+                <p className="text-xs text-gray-300">Creator Dashboard</p>
               </div>
             )}
           </div>
@@ -111,7 +111,7 @@ export function DashboardSidebar({ onSignOut, creator }: DashboardSidebarProps) 
 
         {/* Main Navigation */}
         <SidebarGroup>
-          <SidebarGroupLabel className="text-slate-400">Main</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-gray-300 font-medium">Main</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {mainMenuItems.map((item) => (
@@ -131,7 +131,7 @@ export function DashboardSidebar({ onSignOut, creator }: DashboardSidebarProps) 
         {/* Quick Actions */}
         {!isCollapsed && (
           <SidebarGroup>
-            <SidebarGroupLabel className="text-slate-400">Quick Actions</SidebarGroupLabel>
+            <SidebarGroupLabel className="text-gray-300 font-medium">Quick Actions</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
                 {quickActions.map((item) => (
