@@ -9,6 +9,8 @@ import CreatorPublicPage from "./pages/CreatorPublicPage";
 import SuccessStory from "./pages/SuccessStory";
 import SuccessStories from "./pages/SuccessStories";
 import CreatorDirectory from "./pages/CreatorDirectory";
+import CoursesCatalog from "./pages/CoursesCatalog";
+import CourseDetail from "./pages/CourseDetail";
 import NotFound from "./pages/NotFound";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
@@ -27,9 +29,11 @@ const App = () => (
           <Route path="/dashboard/*" element={<Dashboard />} />
           <Route path="/creators" element={<CreatorDirectory />} />
           <Route path="/stories" element={<SuccessStories />} />
+          <Route path="/courses" element={<CoursesCatalog />} />
           <Route path="/creator/:creatorId" element={<CreatorPublicPage />} />
           <Route path="/public/:creatorId" element={<CreatorPublicPage />} />
           <Route path="/story/:storyId" element={<SuccessStory />} />
+          <Route path="/course/:courseSlug" element={<CourseDetail />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
