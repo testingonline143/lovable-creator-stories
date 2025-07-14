@@ -70,7 +70,7 @@ export function DashboardSidebar({ onSignOut, creator }: DashboardSidebarProps) 
 
   return (
     <Sidebar className={isCollapsed ? 'w-16' : 'w-64'} collapsible="icon">
-      <SidebarContent>
+      <SidebarContent className="bg-card border-border">
         {/* Header */}
         <div className="p-4 border-b border-border">
           <div className="flex items-center gap-3">
@@ -79,7 +79,7 @@ export function DashboardSidebar({ onSignOut, creator }: DashboardSidebarProps) 
             </div>
             {!isCollapsed && (
               <div className="flex-1">
-                <h2 className="text-lg font-bold">CreatorStory</h2>
+                <h2 className="text-lg font-bold text-foreground">CreatorStory</h2>
                 <p className="text-xs text-muted-foreground">Creator Dashboard</p>
               </div>
             )}
@@ -91,7 +91,7 @@ export function DashboardSidebar({ onSignOut, creator }: DashboardSidebarProps) 
           <div className="p-4 border-b border-border">
             <div className="flex items-center justify-between">
               <div>
-                <p className="font-semibold">{creator.name}</p>
+                <p className="font-semibold text-foreground">{creator.name}</p>
                 <div className="flex items-center gap-2 mt-1">
                   <Badge variant={creator.is_public ? 'default' : 'secondary'} className="text-xs">
                     {creator.is_public ? 'Live' : 'Draft'}
