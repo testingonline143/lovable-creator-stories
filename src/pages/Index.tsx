@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { BookOpen, Users, TrendingUp, ArrowRight, Star, Sparkles, Zap } from "lucide-react";
+import { BookOpen, Users, TrendingUp, ArrowRight, Star } from "lucide-react";
 import { creators } from "@/data/creators";
 import Header from "@/components/Header";
 
@@ -14,114 +14,78 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background overflow-hidden">
+    <div className="min-h-screen bg-background">
       <Header />
       
-      {/* Animated Background Elements */}
-      <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute top-20 left-10 w-64 h-64 rounded-full opacity-10 animate-pulse" style={{ background: 'var(--gradient-primary)' }}></div>
-        <div className="absolute bottom-20 right-10 w-96 h-96 rounded-full opacity-5 animate-pulse delay-1000" style={{ background: 'var(--gradient-primary)' }}></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full opacity-5 animate-pulse delay-500" style={{ background: 'var(--gradient-primary)' }}></div>
-      </div>
-      
       {/* Hero Section */}
-      <section className="relative py-32 px-4">
+      <section className="py-20 px-4">
         <div className="container mx-auto text-center">
-          {/* Floating Badges */}
-          <div className="flex justify-center gap-4 mb-12 animate-fade-in">
-            <Badge className="backdrop-blur-sm border border-primary/20 text-sm px-4 py-2 shadow-lg" style={{ background: 'var(--gradient-primary)' }}>
-              <Sparkles className="w-3 h-3 mr-1" />
+          <div className="flex justify-center gap-4 mb-8">
+            <Badge className="text-sm px-4 py-2" style={{ background: 'var(--gradient-primary)' }}>
               Product of the day
             </Badge>
-            <Badge className="backdrop-blur-sm border border-primary/20 text-sm px-4 py-2 shadow-lg" style={{ background: 'var(--gradient-primary)' }}>
-              <Zap className="w-3 h-3 mr-1" />
+            <Badge className="text-sm px-4 py-2" style={{ background: 'var(--gradient-primary)' }}>
               #1 Creator Platform
             </Badge>
           </div>
           
-          {/* Main Headline */}
-          <div className="animate-fade-in delay-200">
-            <h1 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
-              Connect with<br />
-              <span className="relative">
-                <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent animate-pulse">
-                  top creators
-                </span>
-                <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-accent/20 blur-xl -z-10"></div>
-              </span>
-            </h1>
+          <h1 className="text-5xl md:text-7xl font-bold mb-8">
+            Connect with<br />
+            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              top creators
+            </span>
+          </h1>
+          
+          <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-3xl mx-auto">
+            Join the most transparent creator platform. Discover courses, coaching programs, and real revenue stories 
+            from successful creators who share their journey openly.
+          </p>
+          
+          <div className="inline-flex items-center gap-2 mb-8 bg-card border border-border rounded-full px-6 py-3">
+            <span className="text-muted-foreground">creatorstory.com/</span>
+            <span className="text-foreground font-semibold">yourname</span>
           </div>
           
-          {/* Subtitle */}
-          <div className="animate-fade-in delay-300">
-            <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed">
-              Join the most transparent creator platform. Discover courses, coaching programs, and real revenue stories 
-              from successful creators who share their journey openly.
-            </p>
-          </div>
+          <Button 
+            size="lg" 
+            className="text-lg px-10 py-4 mb-16"
+            style={{ background: 'var(--gradient-primary)' }}
+          >
+            Start Your Creator Journey
+            <ArrowRight className="ml-2 h-5 w-5" />
+          </Button>
           
-          {/* URL Preview */}
-          <div className="animate-fade-in delay-400">
-            <div className="inline-flex items-center gap-2 mb-12 bg-card/50 backdrop-blur-sm border border-border/50 rounded-full px-6 py-3 shadow-lg">
-              <span className="text-muted-foreground">creatorstory.com/</span>
-              <span className="text-foreground font-semibold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">yourname</span>
-            </div>
-          </div>
-          
-          {/* CTA Button */}
-          <div className="animate-fade-in delay-500">
-            <Button 
-              size="lg" 
-              className="relative group text-lg px-10 py-4 shadow-xl transition-all duration-300 hover:scale-105"
-              style={{ background: 'var(--gradient-primary)' }}
-            >
-              <div className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ boxShadow: 'var(--shadow-glow)' }}></div>
-              <span className="relative flex items-center">
-                Start Your Creator Journey
-                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-              </span>
-            </Button>
-          </div>
-          
-          {/* Floating Stats Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-20 max-w-4xl mx-auto animate-fade-in delay-700">
-            <div className="bg-card/30 backdrop-blur-sm border border-border/50 rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
-              <div className="flex items-center justify-center mb-4">
-                <Users className="h-8 w-8 text-primary" />
-              </div>
+          {/* Stats Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+            <div className="bg-card border border-border rounded-xl p-6">
+              <Users className="h-8 w-8 text-primary mx-auto mb-4" />
               <div className="text-3xl font-bold text-primary mb-2">{stats.creators.toLocaleString()}</div>
               <div className="text-muted-foreground">Active Creators</div>
             </div>
             
-            <div className="bg-card/30 backdrop-blur-sm border border-border/50 rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
-              <div className="flex items-center justify-center mb-4">
-                <TrendingUp className="h-8 w-8 text-green-500" />
-              </div>
+            <div className="bg-card border border-border rounded-xl p-6">
+              <TrendingUp className="h-8 w-8 text-green-500 mx-auto mb-4" />
               <div className="text-3xl font-bold text-green-500 mb-2">${(stats.revenue / 1000000).toFixed(1)}M+</div>
               <div className="text-muted-foreground">Revenue Generated</div>
             </div>
             
-            <div className="bg-card/30 backdrop-blur-sm border border-border/50 rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
-              <div className="flex items-center justify-center mb-4">
-                <BookOpen className="h-8 w-8 text-blue-500" />
-              </div>
+            <div className="bg-card border border-border rounded-xl p-6">
+              <BookOpen className="h-8 w-8 text-blue-500 mx-auto mb-4" />
               <div className="text-3xl font-bold text-blue-500 mb-2">{stats.courses.toLocaleString()}</div>
               <div className="text-muted-foreground">Courses Available</div>
             </div>
           </div>
           
           {/* Social Proof */}
-          <div className="mt-16 flex items-center justify-center gap-6 animate-fade-in delay-900">
-            <div className="flex -space-x-3">
-              {creators.slice(0, 5).map((creator) => (
-                <div key={creator.id} className="relative">
-                  <img 
-                    src={creator.image} 
-                    alt={creator.name}
-                    className="w-12 h-12 rounded-full border-3 border-background shadow-lg hover:scale-110 transition-transform cursor-pointer"
-                  />
-                  <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-background"></div>
-                </div>
+          <div className="mt-16 flex items-center justify-center gap-6">
+            <div className="flex -space-x-2">
+              {creators.slice(0, 4).map((creator) => (
+                <img 
+                  key={creator.id}
+                  src={creator.image} 
+                  alt={creator.name}
+                  className="w-10 h-10 rounded-full border-2 border-background"
+                />
               ))}
             </div>
             <div className="text-left">
@@ -131,8 +95,7 @@ const Index = () => {
                 ))}
                 <span className="text-sm text-muted-foreground ml-2">4.9/5</span>
               </div>
-              <p className="font-semibold text-foreground">Trusted by 12K+ creators</p>
-              <p className="text-sm text-muted-foreground">Join the community today</p>
+              <p className="font-semibold">Trusted by 12K+ creators</p>
             </div>
           </div>
         </div>
