@@ -116,6 +116,162 @@ export type Database = {
         }
         Relationships: []
       }
+      story_reviews: {
+        Row: {
+          action: string
+          created_at: string
+          feedback: string | null
+          id: string
+          reviewer_id: string | null
+          story_id: string
+        }
+        Insert: {
+          action: string
+          created_at?: string
+          feedback?: string | null
+          id?: string
+          reviewer_id?: string | null
+          story_id: string
+        }
+        Update: {
+          action?: string
+          created_at?: string
+          feedback?: string | null
+          id?: string
+          reviewer_id?: string | null
+          story_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "story_reviews_story_id_fkey"
+            columns: ["story_id"]
+            isOneToOne: false
+            referencedRelation: "story_submissions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      story_sections: {
+        Row: {
+          content: string | null
+          created_at: string
+          id: string
+          metadata: Json | null
+          section_type: string
+          sort_order: number
+          story_id: string
+          updated_at: string
+        }
+        Insert: {
+          content?: string | null
+          created_at?: string
+          id?: string
+          metadata?: Json | null
+          section_type: string
+          sort_order?: number
+          story_id: string
+          updated_at?: string
+        }
+        Update: {
+          content?: string | null
+          created_at?: string
+          id?: string
+          metadata?: Json | null
+          section_type?: string
+          sort_order?: number
+          story_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "story_sections_story_id_fkey"
+            columns: ["story_id"]
+            isOneToOne: false
+            referencedRelation: "story_submissions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      story_submissions: {
+        Row: {
+          admin_notes: string | null
+          category: Database["public"]["Enums"]["story_category"]
+          created_at: string
+          creator_id: string | null
+          featured_image_url: string | null
+          id: string
+          key_metrics: Json | null
+          published_at: string | null
+          revenue_after: number | null
+          revenue_before: number | null
+          reviewed_at: string | null
+          slug: string | null
+          status: Database["public"]["Enums"]["story_status"]
+          submitted_at: string | null
+          subtitle: string | null
+          tags: string[] | null
+          timeframe_end: string | null
+          timeframe_start: string | null
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          admin_notes?: string | null
+          category?: Database["public"]["Enums"]["story_category"]
+          created_at?: string
+          creator_id?: string | null
+          featured_image_url?: string | null
+          id?: string
+          key_metrics?: Json | null
+          published_at?: string | null
+          revenue_after?: number | null
+          revenue_before?: number | null
+          reviewed_at?: string | null
+          slug?: string | null
+          status?: Database["public"]["Enums"]["story_status"]
+          submitted_at?: string | null
+          subtitle?: string | null
+          tags?: string[] | null
+          timeframe_end?: string | null
+          timeframe_start?: string | null
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          admin_notes?: string | null
+          category?: Database["public"]["Enums"]["story_category"]
+          created_at?: string
+          creator_id?: string | null
+          featured_image_url?: string | null
+          id?: string
+          key_metrics?: Json | null
+          published_at?: string | null
+          revenue_after?: number | null
+          revenue_before?: number | null
+          reviewed_at?: string | null
+          slug?: string | null
+          status?: Database["public"]["Enums"]["story_status"]
+          submitted_at?: string | null
+          subtitle?: string | null
+          tags?: string[] | null
+          timeframe_end?: string | null
+          timeframe_start?: string | null
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "story_submissions_creator_id_fkey"
+            columns: ["creator_id"]
+            isOneToOne: false
+            referencedRelation: "creators"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -124,7 +280,22 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      story_category:
+        | "course_creation"
+        | "coaching"
+        | "digital_products"
+        | "saas"
+        | "consulting"
+        | "content_creation"
+        | "ecommerce"
+        | "other"
+      story_status:
+        | "draft"
+        | "submitted"
+        | "under_review"
+        | "approved"
+        | "rejected"
+        | "published"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -251,6 +422,25 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      story_category: [
+        "course_creation",
+        "coaching",
+        "digital_products",
+        "saas",
+        "consulting",
+        "content_creation",
+        "ecommerce",
+        "other",
+      ],
+      story_status: [
+        "draft",
+        "submitted",
+        "under_review",
+        "approved",
+        "rejected",
+        "published",
+      ],
+    },
   },
 } as const

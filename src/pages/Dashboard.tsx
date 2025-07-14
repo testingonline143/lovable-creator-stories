@@ -2,13 +2,15 @@ import { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { User, Session } from '@supabase/supabase-js';
-import { useToast } from '@/components/ui/use-toast';
+import { useToast } from '@/hooks/use-toast';
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { DashboardSidebar } from '@/components/DashboardSidebar';
 import Overview from './dashboard/Overview';
 import Profile from './dashboard/Profile';
 import Revenue from './dashboard/Revenue';
 import Courses from './dashboard/Courses';
+import Stories from './dashboard/Stories';
+import StoryForm from './dashboard/StoryForm';
 import CreatorOnboarding from '@/components/CreatorOnboarding';
 
 interface Creator {
@@ -165,7 +167,10 @@ const Dashboard = () => {
               <Route path="/profile" element={<Profile />} />
               <Route path="/revenue" element={<Revenue />} />
               <Route path="/courses" element={<Courses />} />
-              <Route path="/stories" element={<div className="text-center py-12"><p className="text-muted-foreground">Success Stories - Coming Soon</p></div>} />
+              <Route path="/stories" element={<Stories />} />
+              <Route path="/stories/new" element={<StoryForm />} />
+              <Route path="/stories/edit/:id" element={<StoryForm />} />
+              <Route path="/stories/preview/:id" element={<div className="text-center py-12"><p className="text-muted-foreground">Story Preview - Coming Soon</p></div>} />
               <Route path="/analytics" element={<div className="text-center py-12"><p className="text-muted-foreground">Analytics - Coming Soon</p></div>} />
               <Route path="/settings" element={<div className="text-center py-12"><p className="text-muted-foreground">Settings - Coming Soon</p></div>} />
             </Routes>
