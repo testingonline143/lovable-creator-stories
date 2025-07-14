@@ -152,8 +152,8 @@ const Dashboard = () => {
     <SidebarProvider>
       <div className="min-h-screen flex w-full">
         <DashboardSidebar onSignOut={handleSignOut} creator={creator} />
-        <main className="flex-1 bg-gradient-to-br from-primary/5 via-background to-secondary/5">
-          <header className="border-b border-border bg-background/80 backdrop-blur-md sticky top-0 z-40">
+        <main className="flex-1 bg-gradient-to-br from-background via-background to-muted/20">
+          <header className="border-b border-border/50 bg-background/95 backdrop-blur-md sticky top-0 z-40">
             <div className="flex items-center gap-4 px-6 py-4">
               <SidebarTrigger />
               <h2 className="text-lg font-semibold">Creator Dashboard</h2>

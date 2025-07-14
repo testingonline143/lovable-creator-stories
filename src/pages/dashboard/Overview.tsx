@@ -112,28 +112,28 @@ const Overview = () => {
       value: '0',
       change: '+0%',
       icon: Eye,
-      color: 'text-blue-600'
+      color: 'text-primary'
     },
     {
       title: 'Monthly Revenue',
       value: '$0',
       change: '+0%',
       icon: DollarSign,
-      color: 'text-green-600'
+      color: 'text-accent'
     },
     {
       title: 'Courses',
       value: '0',
       change: '+0%',
       icon: BookOpen,
-      color: 'text-purple-600'
+      color: 'text-primary'
     },
     {
       title: 'Stories',
       value: '0',
       change: '+0%',
       icon: FileText,
-      color: 'text-orange-600'
+      color: 'text-accent'
     }
   ];
 
@@ -144,7 +144,7 @@ const Overview = () => {
       icon: BookOpen,
       action: 'Add Course',
       link: '/dashboard/courses/new',
-      color: 'bg-blue-50 text-blue-700 border-blue-200'
+      color: 'bg-primary/10 text-primary border-primary/20'
     },
     {
       title: 'Share Your Success Story',
@@ -152,7 +152,7 @@ const Overview = () => {
       icon: Star,
       action: 'Add Story',
       link: '/dashboard/stories/new',
-      color: 'bg-yellow-50 text-yellow-700 border-yellow-200'
+      color: 'bg-accent/10 text-accent border-accent/20'
     },
     {
       title: 'Update Revenue Data',
@@ -160,7 +160,7 @@ const Overview = () => {
       icon: TrendingUp,
       action: 'Update Revenue',
       link: '/dashboard/revenue',
-      color: 'bg-green-50 text-green-700 border-green-200'
+      color: 'bg-secondary/50 text-accent border-secondary'
     }
   ];
 
@@ -237,7 +237,7 @@ const Overview = () => {
                   <div>
                     <p className="text-sm text-muted-foreground">{stat.title}</p>
                     <p className="text-2xl font-bold">{stat.value}</p>
-                    <p className="text-sm text-green-600">{stat.change}</p>
+                    <p className="text-sm text-muted-foreground">{stat.change}</p>
                   </div>
                   <Icon className={`h-8 w-8 ${stat.color}`} />
                 </div>
