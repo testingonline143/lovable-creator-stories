@@ -176,28 +176,28 @@ const CreatorPublicPage = () => {
       {/* Functional Tabs */}
       <div className="px-4">
         <Tabs defaultValue="courses" className="w-full">
-          <TabsList className="grid w-full grid-cols-4 bg-transparent border-b border-gray-800 rounded-none h-auto p-0">
+          <TabsList className="grid w-full grid-cols-4 bg-transparent border-b border-gray-800 rounded-none h-auto p-0 mb-8">
             <TabsTrigger 
               value="courses" 
-              className="pb-4 pt-2 font-medium text-sm border-b-2 border-transparent data-[state=active]:border-white data-[state=active]:text-white text-gray-400 bg-transparent rounded-none hover:text-gray-300 transition-colors"
+              className="pb-4 pt-2 font-medium text-base border-b-2 border-transparent data-[state=active]:border-white data-[state=active]:text-white text-gray-500 bg-transparent rounded-none hover:text-gray-300 transition-colors"
             >
               Courses & Coaching
             </TabsTrigger>
             <TabsTrigger 
               value="journey" 
-              className="pb-4 pt-2 font-medium text-sm border-b-2 border-transparent data-[state=active]:border-white data-[state=active]:text-white text-gray-400 bg-transparent rounded-none hover:text-gray-300 transition-colors"
+              className="pb-4 pt-2 font-medium text-base border-b-2 border-transparent data-[state=active]:border-white data-[state=active]:text-white text-gray-500 bg-transparent rounded-none hover:text-gray-300 transition-colors"
             >
               Journey
             </TabsTrigger>
             <TabsTrigger 
               value="revenue" 
-              className="pb-4 pt-2 font-medium text-sm border-b-2 border-transparent data-[state=active]:border-white data-[state=active]:text-white text-gray-400 bg-transparent rounded-none hover:text-gray-300 transition-colors"
+              className="pb-4 pt-2 font-medium text-base border-b-2 border-transparent data-[state=active]:border-white data-[state=active]:text-white text-gray-500 bg-transparent rounded-none hover:text-gray-300 transition-colors"
             >
               Revenue
             </TabsTrigger>
             <TabsTrigger 
               value="reviews" 
-              className="pb-4 pt-2 font-medium text-sm border-b-2 border-transparent data-[state=active]:border-white data-[state=active]:text-white text-gray-400 bg-transparent rounded-none hover:text-gray-300 transition-colors"
+              className="pb-4 pt-2 font-medium text-base border-b-2 border-transparent data-[state=active]:border-white data-[state=active]:text-white text-gray-500 bg-transparent rounded-none hover:text-gray-300 transition-colors"
             >
               Reviews
             </TabsTrigger>
@@ -315,8 +315,8 @@ const CreatorPublicPage = () => {
           <TabsContent value="revenue" className="mt-0">
             <div className="p-4 space-y-6">
               <div className="text-center">
-                <h2 className="text-2xl font-bold text-white mb-2">
-                  Revenue <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Growth</span>
+                <h2 className="text-3xl font-bold text-white mb-2">
+                  Revenue <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Transparency</span>
                 </h2>
                 <p className="text-gray-400 text-sm">
                   Transparent look at my creator journey
