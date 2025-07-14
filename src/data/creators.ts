@@ -181,5 +181,50 @@ export const creators: Creator[] = [
         category: "Development"
       }
     ]
+  },
+  {
+    id: "govardhan",
+    name: "Govardhan Patel",
+    title: "Business & Entrepreneurship",
+    image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=400&fit=crop&crop=face",
+    courses: 9,
+    monthlyRevenue: 38000,
+    badge: "Rising Star",
+    specialty: "Business & Entrepreneurship",
+    bio: "Serial entrepreneur and business mentor. I help ambitious individuals build scalable businesses and achieve financial freedom through proven strategies.",
+    totalStudents: 9800,
+    yearStarted: 2020,
+    website: "govardhanbusiness.com",
+    twitter: "@GovardhanBiz",
+    location: "Mumbai, India",
+    story: "Started my first business at 22 with just $500. After building and selling 3 companies, I decided to share my knowledge and help others achieve entrepreneurial success. My courses focus on practical business building strategies that actually work.",
+    achievements: [
+      "Built 3 successful companies",
+      "Generated $2M+ in business revenue",
+      "Mentored 500+ entrepreneurs",
+      "Featured in Entrepreneur Magazine"
+    ],
+    recentCourses: [
+      {
+        id: "business-mastery",
+        title: "Business Building Mastery",
+        description: "Complete guide to building a profitable business",
+        price: 347,
+        students: 2800,
+        rating: 4.9,
+        thumbnail: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=200&fit=crop",
+        category: "Business"
+      },
+      {
+        id: "entrepreneurship-101",
+        title: "Entrepreneurship 101",
+        description: "Master the fundamentals of starting a business",
+        price: 197,
+        students: 1950,
+        rating: 4.7,
+        thumbnail: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=300&h=200&fit=crop",
+        category: "Business"
+      }
+    ]
   }
 ];
