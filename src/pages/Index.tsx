@@ -62,7 +62,7 @@ const Index = () => {
               size="lg" 
               className="text-lg px-8 py-4 border-primary/30 hover:border-primary backdrop-blur-sm"
             >
-              View Success Stories
+              View Case Studies
             </Button>
           </div>
           
@@ -263,92 +263,129 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Success Stories Section */}
+      {/* Case Studies Section */}
       <section className="relative py-24 px-4 bg-gradient-to-b from-background via-muted/5 to-background">
         <div className="container mx-auto">
-          <div className="text-center mb-16 animate-fade-in">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Success stories that <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">inspire</span>
+          <div className="text-left mb-16 animate-fade-in">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">
+              All Case Studies
             </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              These case studies show exactly how creators built their businesses, overcame challenges, and scaled 
-              to life-changing revenue. Get the blueprint for your own success story.
+            <h3 className="text-2xl md:text-3xl font-semibold text-muted-foreground mb-8">
+              Full Case Studies Database
+            </h3>
+            
+            {/* Search Bar */}
+            <div className="relative max-w-2xl mb-8">
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Try 'newsletter' or 'productized service'"
+                  className="w-full h-14 pl-12 pr-4 text-lg border border-border rounded-xl bg-background focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+                />
+                <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
+                  <svg className="w-5 h-5 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            
+            {/* Results Count */}
+            <p className="text-muted-foreground mb-8">
+              Showing 1-3 of 9 case studies
             </p>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="space-y-8">
             {[
               {
                 id: "sarah-chen-design-systems",
-                timeframe: "8 months",
-                title: "From $0 to $50K/month teaching design systems",
-                preview: "Started my journey at Google where I worked on Gmail's redesign. After seeing the impact of good design on millions of users...",
+                title: "Elliott Choy's Rise from Student Vlogger to 1M+ Subs",
+                platform: "Youtube",
+                preview: "Elliott Choy started with college vlogs and turned it into a multi-platform creator career. This case study breaks down how he grew across YouTube and TikTok.",
                 creator: creators[0],
-                revenue: "$50K/mo",
-                growth: "+2400%"
+                revenue: "$30,000",
+                revenueLabel: "Monthly Revenue",
+                followers: "1.3M",
+                followersLabel: "Followers",
+                isPremium: true
               },
               {
                 id: "marcus-rivera-coaching-empire", 
-                timeframe: "24 months",
-                title: "How I built a 7-figure coaching business in 2 years",
-                preview: "After three years at McKinsey, I was earning $200K+ and working with Fortune 500 CEOs, but I felt disconnected...",
+                title: "What Happens When You Stop Chasing Virality? Ask Nathan",
+                platform: "Youtube",
+                preview: "How Radical Honesty, Slow Content, and Mental Clarity Built a Cult-Like Audience",
                 creator: creators[1],
-                revenue: "$83K/mo",
-                growth: "+1200%"
+                revenue: "$30,000",
+                revenueLabel: "Monthly Revenue",
+                followers: "1.8M",
+                followersLabel: "Followers",
+                isPremium: false
               },
               {
                 id: "elena-volkov-marketing-mastery",
-                timeframe: "1 year", 
-                title: "The marketing course that changed everything",
-                preview: "After 8 years as a freelance digital marketer, I was stuck at $4K monthly revenue. I was trading time for money...",
+                title: "Building a SaaS Newsletter Empire",
+                platform: "Newsletter",
+                preview: "From side project to $50K MRR - the complete breakdown of how one creator turned industry insights into a subscription business.",
                 creator: creators[2],
-                revenue: "$35K/mo",
-                growth: "+875%"
+                revenue: "$50,000",
+                revenueLabel: "Monthly Revenue",
+                followers: "845K",
+                followersLabel: "Subscribers",
+                isPremium: true
               }
             ].map((story, index) => (
               <Link key={story.id} to={`/story/${story.id}`} className="group">
-                <Card className="relative bg-card/50 backdrop-blur-sm border border-border/50 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 overflow-hidden animate-fade-in" style={{ animationDelay: `${index * 150}ms` }}>
-                  {/* Gradient overlay */}
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500" style={{ background: 'var(--gradient-primary)' }}></div>
-                  
-                  <CardContent className="relative p-8">
-                    {/* Header */}
-                    <div className="flex items-center justify-between mb-6">
-                      <Badge className="bg-primary/10 text-primary border border-primary/20 text-xs px-3 py-1">
-                        {story.timeframe}
-                      </Badge>
-                      <div className="text-right">
-                        <div className="text-2xl font-bold text-green-500">{story.revenue}</div>
-                        <div className="text-xs text-green-400">{story.growth} growth</div>
+                <Card className="relative bg-card border border-border hover:shadow-lg transition-all duration-300 overflow-hidden">
+                  <CardContent className="p-0">
+                    <div className="flex gap-6 p-6">
+                      {/* Creator Image */}
+                      <div className="flex-shrink-0">
+                        <img 
+                          src={story.creator.image} 
+                          alt={story.creator.name}
+                          className="w-20 h-20 rounded-full object-cover"
+                        />
                       </div>
-                    </div>
-                    
-                    {/* Title */}
-                    <h3 className="font-bold text-xl mb-4 group-hover:text-primary transition-colors duration-300 leading-tight">
-                      {story.title}
-                    </h3>
-                    
-                    {/* Preview */}
-                    <p className="text-muted-foreground text-sm mb-6 line-clamp-3 leading-relaxed">
-                      {story.preview}
-                    </p>
-                    
-                    {/* Creator Info */}
-                    <div className="flex items-center gap-3">
-                      <img 
-                        src={story.creator.image} 
-                        alt={story.creator.name}
-                        className="w-10 h-10 rounded-full object-cover border-2 border-primary/20"
-                      />
-                      <div>
-                        <div className="text-sm font-semibold">by {story.creator.name}</div>
-                        <div className="text-xs text-muted-foreground">{story.creator.title}</div>
+                      
+                      {/* Content */}
+                      <div className="flex-1 min-w-0">
+                        {/* Title with Premium Badge */}
+                        <div className="flex items-start gap-3 mb-2">
+                          <h3 className="font-bold text-xl text-blue-600 group-hover:text-blue-700 transition-colors leading-tight flex-1">
+                            {story.title}
+                          </h3>
+                          {story.isPremium && (
+                            <Badge className="bg-yellow-500 text-white text-xs px-2 py-1 rounded">
+                              Premium
+                            </Badge>
+                          )}
+                        </div>
+                        
+                        {/* Platform */}
+                        <div className="mb-3">
+                          <span className="text-sm font-medium text-muted-foreground bg-muted px-2 py-1 rounded">
+                            {story.platform}
+                          </span>
+                        </div>
+                        
+                        {/* Preview */}
+                        <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
+                          {story.preview}
+                        </p>
+                        
+                        {/* Stats */}
+                        <div className="flex items-center gap-6">
+                          <div>
+                            <span className="text-2xl font-bold text-green-600">{story.revenue}</span>
+                            <span className="text-sm text-muted-foreground ml-2">{story.revenueLabel}</span>
+                          </div>
+                          <div>
+                            <span className="text-2xl font-bold text-purple-600">{story.followers}</span>
+                            <span className="text-sm text-muted-foreground ml-2">{story.followersLabel}</span>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                    
-                    {/* Read More Arrow */}
-                    <div className="absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <ArrowRight className="w-5 h-5 text-primary" />
                     </div>
                   </CardContent>
                 </Card>
@@ -356,10 +393,10 @@ const Index = () => {
             ))}
           </div>
           
-          {/* View All Stories Button */}
+          {/* View All Case Studies Button */}
           <div className="text-center mt-12 animate-fade-in delay-500">
             <Button variant="outline" size="lg" className="border-primary/30 hover:border-primary text-lg px-8 py-3 backdrop-blur-sm">
-              Read All Success Stories
+              View All Case Studies
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </div>
