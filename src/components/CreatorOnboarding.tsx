@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -29,6 +29,7 @@ interface CreatorOnboardingProps {
 const CreatorOnboarding = ({ onCreatorCreated }: CreatorOnboardingProps) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
+  const [checkingExisting, setCheckingExisting] = useState(true);
   const [formData, setFormData] = useState({
     name: '',
     title: '',
@@ -38,6 +39,33 @@ const CreatorOnboarding = ({ onCreatorCreated }: CreatorOnboardingProps) => {
     slug: '',
   });
   const { toast } = useToast();
+
+  // Check if user already has a creator profile on component mount
+  useEffect(() => {
+    checkExistingProfile();
+  }, []);
+
+  const checkExistingProfile = async () => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+
+      const { data: existingCreator } = await supabase
+        .from('creators')
+        .select('*')
+        .eq('user_id', user.id)
+        .maybeSingle();
+
+      if (existingCreator) {
+        onCreatorCreated(existingCreator);
+        return;
+      }
+    } catch (error) {
+      console.error('Error checking existing profile:', error);
+    } finally {
+      setCheckingExisting(false);
+    }
+  };
 
   const steps = [
     {
@@ -168,6 +196,17 @@ const CreatorOnboarding = ({ onCreatorCreated }: CreatorOnboardingProps) => {
         return false;
     }
   };
+
+  if (checkingExisting) {
+    return (
+      <div className="max-w-2xl mx-auto">
+        <div className="text-center py-12">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-muted-foreground">Checking existing profile...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-2xl mx-auto">

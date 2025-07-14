@@ -42,6 +42,12 @@ const Dashboard = () => {
         if (event === 'SIGNED_OUT') {
           navigate('/auth');
         }
+        
+        if (event === 'SIGNED_IN' && session?.user) {
+          setTimeout(() => {
+            fetchCreatorProfile();
+          }, 100);
+        }
       }
     );
 
@@ -61,13 +67,19 @@ const Dashboard = () => {
 
   const fetchCreatorProfile = async () => {
     try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        navigate('/auth');
+        return;
+      }
+
       const { data, error } = await supabase
         .from('creators')
         .select('*')
-        .eq('user_id', user?.id)
-        .single();
+        .eq('user_id', user.id)
+        .maybeSingle();
 
-      if (error && error.code !== 'PGRST116') {
+      if (error) {
         console.error('Error fetching creator profile:', error);
         return;
       }
