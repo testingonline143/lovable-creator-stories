@@ -24,9 +24,11 @@ const Header = () => {
           </Link>
         </nav>
 
-        <Button className="bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-opacity">
-          Join Community
-        </Button>
+        <Link to="/auth">
+          <Button className="bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-opacity">
+            Sign In
+          </Button>
+        </Link>
       </div>
     </header>
   );
