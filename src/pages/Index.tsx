@@ -37,8 +37,8 @@ const Index = () => {
           </h1>
           
           <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-3xl mx-auto">
-            Join the most transparent creator platform. Discover courses, coaching programs, and real revenue stories 
-            from successful creators who share their journey openly.
+            Build your own creator page, showcase inspiring case studies, and connect with an audience that values 
+            transparency. Join successful creators who share real revenue numbers and authentic growth stories.
           </p>
           
           <div className="inline-flex items-center gap-2 mb-8 bg-card border border-border rounded-full px-6 py-3">
@@ -46,14 +46,23 @@ const Index = () => {
             <span className="text-foreground font-semibold">yourname</span>
           </div>
           
-          <Button 
-            size="lg" 
-            className="text-lg px-10 py-4 mb-16"
-            style={{ background: 'var(--gradient-primary)' }}
-          >
-            Start Your Creator Journey
-            <ArrowRight className="ml-2 h-5 w-5" />
-          </Button>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
+            <Button 
+              size="lg" 
+              className="text-lg px-10 py-4"
+              style={{ background: 'var(--gradient-primary)' }}
+            >
+              Create Your Creator Page
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+            <Button 
+              variant="outline"
+              size="lg" 
+              className="text-lg px-8 py-4 border-primary/30 hover:border-primary backdrop-blur-sm"
+            >
+              View Success Stories
+            </Button>
+          </div>
           
           {/* Stats Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
@@ -106,10 +115,11 @@ const Index = () => {
         <div className="container mx-auto">
           <div className="text-center mb-16 animate-fade-in">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Meet our <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">top creators</span>
+              Get inspired by <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">creator pages</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Real creators sharing real revenue numbers and authentic growth stories
+              See how successful creators showcase their journey with custom pages featuring real revenue data, 
+              course offerings, and transparent growth metrics that convert visitors into students
             </p>
           </div>
           
@@ -184,7 +194,8 @@ const Index = () => {
               Success stories that <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">inspire</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Real revenue numbers, authentic struggles, and breakthrough moments from creators like you
+              These case studies show exactly how creators built their businesses, overcame challenges, and scaled 
+              to life-changing revenue. Get the blueprint for your own success story.
             </p>
           </div>
           
@@ -287,7 +298,8 @@ const Index = () => {
               Ready to share your story?
             </h2>
             <p className="text-xl text-white/80 mb-12 max-w-2xl mx-auto">
-              Join thousands of creators who are building transparent, authentic businesses and inspiring others with their journey.
+              Create your personalized creator page, share your success story, and inspire others while building 
+              your business. Start with our proven templates and case study examples.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
