@@ -179,25 +179,25 @@ const CreatorPublicPage = () => {
           <TabsList className="grid w-full grid-cols-4 bg-transparent border-b border-gray-800 rounded-none h-auto p-0">
             <TabsTrigger 
               value="courses" 
-              className="pb-3 font-medium text-sm border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:text-white text-gray-400 bg-transparent rounded-none"
+              className="pb-4 pt-2 font-medium text-sm border-b-2 border-transparent data-[state=active]:border-white data-[state=active]:text-white text-gray-400 bg-transparent rounded-none hover:text-gray-300 transition-colors"
             >
               Courses & Coaching
             </TabsTrigger>
             <TabsTrigger 
               value="journey" 
-              className="pb-3 font-medium text-sm border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:text-white text-gray-400 bg-transparent rounded-none"
+              className="pb-4 pt-2 font-medium text-sm border-b-2 border-transparent data-[state=active]:border-white data-[state=active]:text-white text-gray-400 bg-transparent rounded-none hover:text-gray-300 transition-colors"
             >
               Journey
             </TabsTrigger>
             <TabsTrigger 
               value="revenue" 
-              className="pb-3 font-medium text-sm border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:text-white text-gray-400 bg-transparent rounded-none"
+              className="pb-4 pt-2 font-medium text-sm border-b-2 border-transparent data-[state=active]:border-white data-[state=active]:text-white text-gray-400 bg-transparent rounded-none hover:text-gray-300 transition-colors"
             >
               Revenue
             </TabsTrigger>
             <TabsTrigger 
               value="reviews" 
-              className="pb-3 font-medium text-sm border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:text-white text-gray-400 bg-transparent rounded-none"
+              className="pb-4 pt-2 font-medium text-sm border-b-2 border-transparent data-[state=active]:border-white data-[state=active]:text-white text-gray-400 bg-transparent rounded-none hover:text-gray-300 transition-colors"
             >
               Reviews
             </TabsTrigger>
@@ -215,68 +215,43 @@ const CreatorPublicPage = () => {
                 </p>
               </div>
 
-              {/* Course Grid */}
-              <div className="space-y-4">
-                {allCourses.map((course, index) => (
-                  <Card key={course.id} className="bg-gray-900 border-gray-800 shadow-lg overflow-hidden">
-                    <div className="relative">
-                      <img 
-                        src={course.thumbnail}
-                        alt={course.title}
-                        className="w-full h-40 object-cover"
-                      />
-                      <Badge className={`absolute top-3 left-3 text-white text-xs ${
-                        course.badge === 'Popular' ? 'bg-primary' : 
-                        course.badge === 'New' ? 'bg-red-500' : 'bg-green-500'
-                      }`}>
-                        {course.badge}
-                      </Badge>
-                      <div className="absolute top-3 right-3">
-                        <Button size="sm" className="bg-black/50 backdrop-blur-sm text-white border-white/30 hover:bg-black/70 h-8 w-8 p-0">
-                          <Play className="h-4 w-4" />
-                        </Button>
-                      </div>
-                    </div>
-                    
-                    <CardContent className="p-4">
-                      <h3 className="text-lg font-bold text-white mb-2">
-                        {course.title}
-                      </h3>
-                      <p className="text-gray-400 text-sm mb-3">
-                        {course.description}
-                      </p>
-                      
-                      <div className="flex items-center gap-4 text-xs text-gray-400 mb-3">
-                        <div className="flex items-center gap-1">
-                          <Users className="h-3 w-3" />
-                          {course.students.toLocaleString()}
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <Clock className="h-3 w-3" />
-                          {course.hours} hours
-                        </div>
-                        <Badge variant="secondary" className="text-xs bg-gray-800 text-gray-300 px-2 py-0">
-                          {course.level}
-                        </Badge>
-                      </div>
-                      
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <div className="flex items-center gap-1">
-                            <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
-                            <span className="font-semibold text-yellow-400 text-sm">{course.rating}</span>
+              {/* Course Grid - Horizontal Layout */}
+              <div className="overflow-x-auto">
+                <div className="flex gap-4 pb-4">
+                  {allCourses.map((course, index) => (
+                    <div key={course.id} className="flex-shrink-0 w-80">
+                      <Card className="bg-gray-900 border-gray-800 shadow-lg overflow-hidden h-full">
+                        <div className="relative">
+                          <img 
+                            src={course.thumbnail}
+                            alt={course.title}
+                            className="w-full h-48 object-cover"
+                          />
+                          <Badge className={`absolute top-3 left-3 text-white text-xs font-medium ${
+                            course.badge === 'Popular' ? 'bg-purple-600' : 
+                            course.badge === 'New' ? 'bg-red-500' : 'bg-green-500'
+                          }`}>
+                            {course.badge.toLowerCase()}
+                          </Badge>
+                          <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
+                            <Button size="sm" className="bg-white/90 text-black hover:bg-white h-12 w-12 rounded-full p-0">
+                              <Play className="h-5 w-5 ml-0.5" />
+                            </Button>
                           </div>
-                          <span className="text-xs text-gray-400">
-                            ({course.reviews} reviews)
-                          </span>
                         </div>
-                        <div className="text-xl font-bold text-primary">
-                          ${course.price}
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
+                        
+                        <CardContent className="p-6">
+                          <h3 className="text-xl font-bold text-white mb-3 leading-tight">
+                            {course.title}
+                          </h3>
+                          <p className="text-gray-400 text-sm mb-4 leading-relaxed">
+                            {course.description}
+                          </p>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </TabsContent>
