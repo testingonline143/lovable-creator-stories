@@ -117,7 +117,13 @@ export function DashboardSidebar({ onSignOut, creator }: DashboardSidebarProps) 
               {mainMenuItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <NavLink to={item.url} className={getNavCls}>
+                    <NavLink to={item.url} className={({ isActive }) => 
+                      `flex items-center gap-3 rounded-lg px-3 py-2 transition-colors !important ${
+                        isActive 
+                          ? 'bg-primary text-white font-semibold' 
+                          : 'text-gray-200 hover:text-white hover:bg-gray-700/50'
+                      }`
+                    }>
                       <item.icon className="h-4 w-4" />
                       {!isCollapsed && <span>{item.title}</span>}
                     </NavLink>
@@ -137,7 +143,13 @@ export function DashboardSidebar({ onSignOut, creator }: DashboardSidebarProps) 
                 {quickActions.map((item) => (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild>
-                      <NavLink to={item.url} className={getNavCls}>
+                      <NavLink to={item.url} className={({ isActive }) => 
+                        `flex items-center gap-3 rounded-lg px-3 py-2 transition-colors !important ${
+                          isActive 
+                            ? 'bg-primary text-white font-semibold' 
+                            : 'text-gray-200 hover:text-white hover:bg-gray-700/50'
+                        }`
+                      }>
                         <item.icon className="h-4 w-4" />
                         <span>{item.title}</span>
                       </NavLink>
@@ -154,7 +166,13 @@ export function DashboardSidebar({ onSignOut, creator }: DashboardSidebarProps) 
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton asChild>
-                <NavLink to="/dashboard/settings" className={getNavCls}>
+                <NavLink to="/dashboard/settings" className={({ isActive }) => 
+                  `flex items-center gap-3 rounded-lg px-3 py-2 transition-colors !important ${
+                    isActive 
+                      ? 'bg-primary text-white font-semibold' 
+                      : 'text-gray-200 hover:text-white hover:bg-gray-700/50'
+                  }`
+                }>
                   <Settings className="h-4 w-4" />
                   {!isCollapsed && <span>Settings</span>}
                 </NavLink>
@@ -162,7 +180,7 @@ export function DashboardSidebar({ onSignOut, creator }: DashboardSidebarProps) 
             </SidebarMenuItem>
             <SidebarMenuItem>
               <SidebarMenuButton asChild>
-                <button onClick={onSignOut} className={getNavCls({ isActive: false })}>
+                <button onClick={onSignOut} className="flex items-center gap-3 rounded-lg px-3 py-2 transition-colors text-gray-200 hover:text-white hover:bg-gray-700/50 w-full text-left">
                   <LogOut className="h-4 w-4" />
                   {!isCollapsed && <span>Sign Out</span>}
                 </button>
