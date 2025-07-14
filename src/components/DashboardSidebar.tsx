@@ -50,7 +50,7 @@ export function DashboardSidebar({ onSignOut, creator }: DashboardSidebarProps) 
     `flex items-center gap-3 rounded-lg px-3 py-2 transition-colors ${
       isActive 
         ? 'bg-primary text-white font-semibold' 
-        : 'text-gray-200 hover:text-white hover:bg-white/10'
+        : 'text-gray-200 hover:text-white hover:bg-gray-800'
     }`;
 
   const mainMenuItems = [
