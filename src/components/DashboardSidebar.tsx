@@ -50,7 +50,7 @@ export function DashboardSidebar({ onSignOut, creator }: DashboardSidebarProps) 
     `flex items-center gap-3 rounded-lg px-3 py-2 transition-colors ${
       isActive 
         ? 'bg-primary text-primary-foreground' 
-        : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+        : 'text-slate-300 hover:text-white hover:bg-muted'
     }`;
 
   const mainMenuItems = [
@@ -79,8 +79,8 @@ export function DashboardSidebar({ onSignOut, creator }: DashboardSidebarProps) 
             </div>
             {!isCollapsed && (
               <div className="flex-1">
-                <h2 className="text-lg font-bold text-foreground">CreatorStory</h2>
-                <p className="text-xs text-muted-foreground">Creator Dashboard</p>
+                <h2 className="text-lg font-bold text-white">CreatorStory</h2>
+                <p className="text-xs text-slate-400">Creator Dashboard</p>
               </div>
             )}
           </div>
@@ -91,7 +91,7 @@ export function DashboardSidebar({ onSignOut, creator }: DashboardSidebarProps) 
           <div className="p-4 border-b border-border">
             <div className="flex items-center justify-between">
               <div>
-                <p className="font-semibold text-foreground">{creator.name}</p>
+                <p className="font-semibold text-white">{creator.name}</p>
                 <div className="flex items-center gap-2 mt-1">
                   <Badge variant={creator.is_public ? 'default' : 'secondary'} className="text-xs">
                     {creator.is_public ? 'Live' : 'Draft'}
@@ -111,7 +111,7 @@ export function DashboardSidebar({ onSignOut, creator }: DashboardSidebarProps) 
 
         {/* Main Navigation */}
         <SidebarGroup>
-          <SidebarGroupLabel className="text-muted-foreground">Main</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-slate-400">Main</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {mainMenuItems.map((item) => (
@@ -131,7 +131,7 @@ export function DashboardSidebar({ onSignOut, creator }: DashboardSidebarProps) 
         {/* Quick Actions */}
         {!isCollapsed && (
           <SidebarGroup>
-            <SidebarGroupLabel className="text-muted-foreground">Quick Actions</SidebarGroupLabel>
+            <SidebarGroupLabel className="text-slate-400">Quick Actions</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
                 {quickActions.map((item) => (
