@@ -110,6 +110,81 @@ const Index = () => {
         </div>
       </section>
 
+      {/* About Platform Section */}
+      <section className="py-24 px-4 bg-gradient-to-b from-background to-muted/10">
+        <div className="container mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              The most <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">transparent</span> creator platform
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              CreatorStory is where successful creators share their real numbers, proven strategies, and authentic journeys. 
+              No fake gurus, no hidden secrets - just transparent business building that actually works.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            {/* Benefit 1 */}
+            <div className="text-center p-8 bg-card border border-border rounded-xl hover:shadow-lg transition-shadow duration-300">
+              <div className="w-16 h-16 mx-auto mb-6 bg-primary/10 rounded-full flex items-center justify-center">
+                <Users className="w-8 h-8 text-primary" />
+              </div>
+              <h3 className="text-xl font-bold mb-4">Your Personal Creator Page</h3>
+              <p className="text-muted-foreground">
+                Build a stunning profile that showcases your courses, revenue milestones, and success story. 
+                Stand out with transparency that converts visitors into loyal students.
+              </p>
+            </div>
+
+            {/* Benefit 2 */}
+            <div className="text-center p-8 bg-card border border-border rounded-xl hover:shadow-lg transition-shadow duration-300">
+              <div className="w-16 h-16 mx-auto mb-6 bg-green-500/10 rounded-full flex items-center justify-center">
+                <TrendingUp className="w-8 h-8 text-green-500" />
+              </div>
+              <h3 className="text-xl font-bold mb-4">Real Revenue Transparency</h3>
+              <p className="text-muted-foreground">
+                Share your actual earnings and growth metrics. Build trust through transparency and inspire 
+                others with your authentic journey from zero to success.
+              </p>
+            </div>
+
+            {/* Benefit 3 */}
+            <div className="text-center p-8 bg-card border border-border rounded-xl hover:shadow-lg transition-shadow duration-300">
+              <div className="w-16 h-16 mx-auto mb-6 bg-blue-500/10 rounded-full flex items-center justify-center">
+                <BookOpen className="w-8 h-8 text-blue-500" />
+              </div>
+              <h3 className="text-xl font-bold mb-4">Inspiring Case Studies</h3>
+              <p className="text-muted-foreground">
+                Access detailed breakdowns of how successful creators built their businesses. Get the exact 
+                strategies, timelines, and tactics that led to their breakthrough moments.
+              </p>
+            </div>
+          </div>
+
+          {/* How it Works */}
+          <div className="bg-card border border-border rounded-2xl p-8 md:p-12">
+            <h3 className="text-3xl font-bold text-center mb-12">How CreatorStory Works</h3>
+            <div className="grid md:grid-cols-3 gap-8">
+              <div className="text-center">
+                <div className="w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg">1</div>
+                <h4 className="text-lg font-semibold mb-2">Create Your Page</h4>
+                <p className="text-muted-foreground">Set up your creator profile with your story, courses, and revenue milestones</p>
+              </div>
+              <div className="text-center">
+                <div className="w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg">2</div>
+                <h4 className="text-lg font-semibold mb-2">Share Transparently</h4>
+                <p className="text-muted-foreground">Update your real numbers and share authentic insights about your journey</p>
+              </div>
+              <div className="text-center">
+                <div className="w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg">3</div>
+                <h4 className="text-lg font-semibold mb-2">Inspire & Grow</h4>
+                <p className="text-muted-foreground">Build trust, attract students, and scale your creator business through transparency</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Featured Creators Section */}
       <section className="relative py-24 px-4">
         <div className="container mx-auto">
