@@ -115,7 +115,7 @@ const Courses = () => {
                 <p className="text-sm text-muted-foreground">Total Courses</p>
                 <p className="text-2xl font-bold">{courses.length}</p>
               </div>
-              <BookOpen className="h-8 w-8 text-blue-600" />
+              <BookOpen className="h-8 w-8 text-primary" />
             </div>
           </CardContent>
         </Card>
@@ -127,7 +127,7 @@ const Courses = () => {
                 <p className="text-sm text-muted-foreground">Total Students</p>
                 <p className="text-2xl font-bold">{totalStudents.toLocaleString()}</p>
               </div>
-              <Users className="h-8 w-8 text-green-600" />
+              <Users className="h-8 w-8 text-accent" />
             </div>
           </CardContent>
         </Card>
@@ -139,7 +139,7 @@ const Courses = () => {
                 <p className="text-sm text-muted-foreground">Course Revenue</p>
                 <p className="text-2xl font-bold">${totalRevenue.toLocaleString()}</p>
               </div>
-              <DollarSign className="h-8 w-8 text-green-600" />
+              <DollarSign className="h-8 w-8 text-accent" />
             </div>
           </CardContent>
         </Card>
@@ -151,7 +151,7 @@ const Courses = () => {
                 <p className="text-sm text-muted-foreground">Avg Rating</p>
                 <p className="text-2xl font-bold">{avgRating.toFixed(1)}</p>
               </div>
-              <Star className="h-8 w-8 text-yellow-600" />
+              <Star className="h-8 w-8 text-primary" />
             </div>
           </CardContent>
         </Card>
@@ -314,8 +314,8 @@ const Courses = () => {
         <CardContent>
           <div className="space-y-4">
             <div className="flex items-start gap-3">
-              <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center mt-1">
-                <span className="text-blue-600 text-sm font-bold">1</span>
+              <div className="w-6 h-6 bg-primary/20 rounded-full flex items-center justify-center mt-1">
+                <span className="text-primary text-sm font-bold">1</span>
               </div>
               <div>
                 <h4 className="font-semibold">Clear Value Proposition</h4>
@@ -325,8 +325,8 @@ const Courses = () => {
               </div>
             </div>
             <div className="flex items-start gap-3">
-              <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center mt-1">
-                <span className="text-green-600 text-sm font-bold">2</span>
+              <div className="w-6 h-6 bg-accent/20 rounded-full flex items-center justify-center mt-1">
+                <span className="text-accent text-sm font-bold">2</span>
               </div>
               <div>
                 <h4 className="font-semibold">Update Student Numbers</h4>
@@ -336,8 +336,8 @@ const Courses = () => {
               </div>
             </div>
             <div className="flex items-start gap-3">
-              <div className="w-6 h-6 bg-purple-100 rounded-full flex items-center justify-center mt-1">
-                <span className="text-purple-600 text-sm font-bold">3</span>
+              <div className="w-6 h-6 bg-secondary/50 rounded-full flex items-center justify-center mt-1">
+                <span className="text-primary text-sm font-bold">3</span>
               </div>
               <div>
                 <h4 className="font-semibold">Link to Course Platform</h4>

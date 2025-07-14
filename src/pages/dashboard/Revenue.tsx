@@ -68,7 +68,7 @@ const Revenue = () => {
                 <p className="text-sm text-muted-foreground">Total Revenue</p>
                 <p className="text-2xl font-bold">${totalRevenue.toLocaleString()}</p>
               </div>
-              <DollarSign className="h-8 w-8 text-green-600" />
+              <DollarSign className="h-8 w-8 text-accent" />
             </div>
           </CardContent>
         </Card>
@@ -80,7 +80,7 @@ const Revenue = () => {
                 <p className="text-sm text-muted-foreground">Current Month</p>
                 <p className="text-2xl font-bold">${currentMonth.toLocaleString()}</p>
               </div>
-              <Calendar className="h-8 w-8 text-blue-600" />
+              <Calendar className="h-8 w-8 text-primary" />
             </div>
           </CardContent>
         </Card>
@@ -92,7 +92,7 @@ const Revenue = () => {
                 <p className="text-sm text-muted-foreground">Monthly Growth</p>
                 <p className="text-2xl font-bold">{monthlyGrowth.toFixed(1)}%</p>
               </div>
-              <TrendingUp className={`h-8 w-8 ${monthlyGrowth >= 0 ? 'text-green-600' : 'text-red-600'}`} />
+              <TrendingUp className={`h-8 w-8 ${monthlyGrowth >= 0 ? 'text-accent' : 'text-destructive'}`} />
             </div>
           </CardContent>
         </Card>
@@ -152,8 +152,8 @@ const Revenue = () => {
             {revenueData.map((item, index) => (
               <div key={index} className="flex items-center justify-between p-4 border rounded-lg">
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                    <DollarSign className="h-6 w-6 text-green-600" />
+                  <div className="w-12 h-12 bg-accent/20 rounded-full flex items-center justify-center">
+                    <DollarSign className="h-6 w-6 text-accent" />
                   </div>
                   <div>
                     <h3 className="font-semibold">{item.month}</h3>
@@ -189,8 +189,8 @@ const Revenue = () => {
         <CardContent>
           <div className="space-y-4">
             <div className="flex items-start gap-3">
-              <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center mt-1">
-                <span className="text-blue-600 text-sm font-bold">1</span>
+              <div className="w-6 h-6 bg-primary/20 rounded-full flex items-center justify-center mt-1">
+                <span className="text-primary text-sm font-bold">1</span>
               </div>
               <div>
                 <h4 className="font-semibold">Be Honest About Your Numbers</h4>
@@ -200,8 +200,8 @@ const Revenue = () => {
               </div>
             </div>
             <div className="flex items-start gap-3">
-              <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center mt-1">
-                <span className="text-green-600 text-sm font-bold">2</span>
+              <div className="w-6 h-6 bg-accent/20 rounded-full flex items-center justify-center mt-1">
+                <span className="text-accent text-sm font-bold">2</span>
               </div>
               <div>
                 <h4 className="font-semibold">Update Regularly</h4>
@@ -211,8 +211,8 @@ const Revenue = () => {
               </div>
             </div>
             <div className="flex items-start gap-3">
-              <div className="w-6 h-6 bg-purple-100 rounded-full flex items-center justify-center mt-1">
-                <span className="text-purple-600 text-sm font-bold">3</span>
+              <div className="w-6 h-6 bg-secondary/50 rounded-full flex items-center justify-center mt-1">
+                <span className="text-primary text-sm font-bold">3</span>
               </div>
               <div>
                 <h4 className="font-semibold">Share Your Story</h4>
