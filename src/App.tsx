@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import CreatorProfile from "./pages/CreatorProfile";
 import CreatorPublicPage from "./pages/CreatorPublicPage";
 import SuccessStory from "./pages/SuccessStory";
+import SuccessStories from "./pages/SuccessStories";
 import CreatorDirectory from "./pages/CreatorDirectory";
 import NotFound from "./pages/NotFound";
 import Auth from "./pages/Auth";
@@ -25,6 +26,7 @@ const App = () => (
           <Route path="/auth" element={<Auth />} />
           <Route path="/dashboard/*" element={<Dashboard />} />
           <Route path="/creators" element={<CreatorDirectory />} />
+          <Route path="/stories" element={<SuccessStories />} />
           <Route path="/creator/:creatorId" element={<CreatorPublicPage />} />
           <Route path="/public/:creatorId" element={<CreatorPublicPage />} />
           <Route path="/story/:storyId" element={<SuccessStory />} />
