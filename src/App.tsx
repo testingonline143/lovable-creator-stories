@@ -21,7 +21,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/creators" element={<CreatorDirectory />} />
-          <Route path="/creator/:creatorId" element={<CreatorProfile />} />
+          <Route path="/creator/:creatorId" element={<CreatorPublicPage />} />
           <Route path="/public/:creatorId" element={<CreatorPublicPage />} />
           <Route path="/story/:storyId" element={<SuccessStory />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
