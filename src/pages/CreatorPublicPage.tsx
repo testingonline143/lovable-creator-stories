@@ -205,21 +205,21 @@ const CreatorPublicPage = () => {
 
           {/* Courses & Coaching Content */}
           <TabsContent value="courses" className="mt-0">
-            <div className="p-4 space-y-6">
+            <div className="p-4 space-y-8">
               <div className="text-center">
-                <h2 className="text-2xl font-bold text-white mb-2">
-                  Courses & <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Coaching Programs</span>
+                <h2 className="text-3xl font-bold text-white mb-4">
+                  Courses & <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Coaching Programs</span>
                 </h2>
-                <p className="text-gray-400 text-sm">
+                <p className="text-gray-400 text-base">
                   Comprehensive education designed to level up your design career
                 </p>
               </div>
 
               {/* Course Grid - Horizontal Layout */}
               <div className="overflow-x-auto">
-                <div className="flex gap-4 pb-4">
+                <div className="flex gap-6 pb-4">
                   {allCourses.map((course, index) => (
-                    <div key={course.id} className="flex-shrink-0 w-80">
+                    <div key={course.id} className="flex-shrink-0 w-96">
                       <Card className="bg-gray-900 border-gray-800 shadow-lg overflow-hidden h-full">
                         <div className="relative">
                           <img 
@@ -227,26 +227,55 @@ const CreatorPublicPage = () => {
                             alt={course.title}
                             className="w-full h-48 object-cover"
                           />
-                          <Badge className={`absolute top-3 left-3 text-white text-xs font-medium ${
+                          <Badge className={`absolute top-4 left-4 text-white text-xs font-medium px-3 py-1 ${
                             course.badge === 'Popular' ? 'bg-purple-600' : 
                             course.badge === 'New' ? 'bg-red-500' : 'bg-green-500'
                           }`}>
                             {course.badge.toLowerCase()}
                           </Badge>
                           <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
-                            <Button size="sm" className="bg-white/90 text-black hover:bg-white h-12 w-12 rounded-full p-0">
-                              <Play className="h-5 w-5 ml-0.5" />
+                            <Button size="sm" className="bg-purple-600 hover:bg-purple-700 text-white h-14 w-14 rounded-full p-0">
+                              <Play className="h-6 w-6 ml-0.5" />
                             </Button>
                           </div>
                         </div>
                         
                         <CardContent className="p-6">
-                          <h3 className="text-xl font-bold text-white mb-3 leading-tight">
+                          <h3 className="text-xl font-bold text-purple-400 mb-4 leading-tight">
                             {course.title}
                           </h3>
-                          <p className="text-gray-400 text-sm mb-4 leading-relaxed">
+                          <p className="text-gray-400 text-sm mb-6 leading-relaxed">
                             {course.description}
                           </p>
+                          
+                          <div className="flex items-center gap-6 text-sm text-gray-400 mb-6">
+                            <div className="flex items-center gap-2">
+                              <Users className="h-4 w-4" />
+                              <span>{course.students.toLocaleString()}</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <Clock className="h-4 w-4" />
+                              <span>{course.hours} hours</span>
+                            </div>
+                            <Badge variant="secondary" className="text-xs bg-gray-800 text-gray-300 px-3 py-1">
+                              {course.level}
+                            </Badge>
+                          </div>
+                          
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <div className="flex items-center gap-1">
+                                <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                                <span className="font-semibold text-yellow-400 text-base">{course.rating}</span>
+                              </div>
+                              <span className="text-sm text-gray-400">
+                                ({course.reviews} reviews)
+                              </span>
+                            </div>
+                            <div className="text-2xl font-bold text-purple-400">
+                              ${course.price}
+                            </div>
+                          </div>
                         </CardContent>
                       </Card>
                     </div>
@@ -258,51 +287,78 @@ const CreatorPublicPage = () => {
 
           {/* Journey Content */}
           <TabsContent value="journey" className="mt-0">
-            <div className="p-4 space-y-6">
+            <div className="p-4 space-y-8">
               <div className="text-center">
-                <h2 className="text-2xl font-bold text-white mb-2">
-                  My <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Journey</span>
+                <h2 className="text-3xl font-bold text-white mb-4">
+                  The <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Journey</span>
                 </h2>
-                <p className="text-gray-400 text-sm">
-                  From designer to educator - my path to success
+                <p className="text-gray-400 text-base">
+                  From zero to $847,000 - the complete story
                 </p>
               </div>
 
-              <div className="space-y-4">
+              <div className="space-y-6">
                 <Card className="bg-gray-900 border-gray-800">
-                  <CardContent className="p-4">
-                    <div className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                      <div>
-                        <div className="text-sm text-gray-400 mb-1">2024 - Present</div>
-                        <h3 className="text-white font-semibold mb-2">Top Creator Status</h3>
-                        <p className="text-gray-400 text-sm">Reached $800K+ in total revenue with 12,000+ students across 12 courses</p>
+                  <CardContent className="p-6">
+                    <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
+                        <Award className="h-6 w-6 text-white" />
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex justify-between items-start mb-2">
+                          <div>
+                            <h3 className="text-xl font-bold text-white mb-1">Started Teaching Online</h3>
+                            <div className="text-sm text-gray-400">January 2022</div>
+                          </div>
+                          <div className="text-2xl font-bold text-green-400">$0/mo</div>
+                        </div>
+                        <p className="text-gray-400 text-sm leading-relaxed">
+                          Left my senior UX role at Uber to focus on education full-time
+                        </p>
                       </div>
                     </div>
                   </CardContent>
                 </Card>
 
                 <Card className="bg-gray-900 border-gray-800">
-                  <CardContent className="p-4">
-                    <div className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-accent rounded-full mt-2 flex-shrink-0"></div>
-                      <div>
-                        <div className="text-sm text-gray-400 mb-1">2023</div>
-                        <h3 className="text-white font-semibold mb-2">Design Systems Masterclass Launch</h3>
-                        <p className="text-gray-400 text-sm">Launched my flagship course, reaching 4,500+ students in first year</p>
+                  <CardContent className="p-6">
+                    <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
+                        <Play className="h-6 w-6 text-white" />
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex justify-between items-start mb-2">
+                          <div>
+                            <h3 className="text-xl font-bold text-white mb-1">First Course Launch</h3>
+                            <div className="text-sm text-gray-400">March 2022</div>
+                          </div>
+                          <div className="text-2xl font-bold text-green-400">$15,000/mo</div>
+                        </div>
+                        <p className="text-gray-400 text-sm leading-relaxed">
+                          Design Systems Masterclass - sold 100 copies in first week
+                        </p>
                       </div>
                     </div>
                   </CardContent>
                 </Card>
 
                 <Card className="bg-gray-900 border-gray-800">
-                  <CardContent className="p-4">
-                    <div className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-green-400 rounded-full mt-2 flex-shrink-0"></div>
-                      <div>
-                        <div className="text-sm text-gray-400 mb-1">2022</div>
-                        <h3 className="text-white font-semibold mb-2">Started Teaching</h3>
-                        <p className="text-gray-400 text-sm">Transitioned from full-time design to education, launching first UX course</p>
+                  <CardContent className="p-6">
+                    <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
+                        <Award className="h-6 w-6 text-white" />
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex justify-between items-start mb-2">
+                          <div>
+                            <h3 className="text-xl font-bold text-white mb-1">Hit $10K/month</h3>
+                            <div className="text-sm text-gray-400">August 2022</div>
+                          </div>
+                          <div className="text-2xl font-bold text-green-400">$12,000/mo</div>
+                        </div>
+                        <p className="text-gray-400 text-sm leading-relaxed">
+                          Consistent growth through word-of-mouth and social media
+                        </p>
                       </div>
                     </div>
                   </CardContent>
@@ -365,102 +421,109 @@ const CreatorPublicPage = () => {
 
           {/* Reviews Content */}
           <TabsContent value="reviews" className="mt-0">
-            <div className="p-4 space-y-6">
+            <div className="p-4 space-y-8">
               <div className="text-center">
-                <h2 className="text-2xl font-bold text-white mb-2">
-                  Student <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Reviews</span>
+                <h2 className="text-3xl font-bold text-white mb-4">
+                  Student <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Testimonials</span>
                 </h2>
-                <p className="text-gray-400 text-sm">
-                  What my students are saying
+                <p className="text-gray-400 text-base">
+                  What students are saying about their transformation
                 </p>
               </div>
 
-              <div className="flex items-center justify-center gap-4 mb-6">
-                <div className="text-center">
-                  <div className="flex items-center justify-center gap-1 mb-1">
-                    <Star className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-                    <span className="text-3xl font-bold text-yellow-400">4.9</span>
-                  </div>
-                  <div className="text-xs text-gray-400">Average Rating</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-white">2,341</div>
-                  <div className="text-xs text-gray-400">Total Reviews</div>
-                </div>
-              </div>
-
-              <div className="space-y-4">
-                <Card className="bg-gray-900 border-gray-800">
-                  <CardContent className="p-4">
-                    <div className="flex items-start gap-3 mb-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <Card className="bg-gray-900 border-gray-800 p-6">
+                  <CardContent className="p-0">
+                    <div className="flex gap-1 mb-4">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+                      ))}
+                    </div>
+                    <p className="text-gray-300 text-sm leading-relaxed mb-6 italic">
+                      "Sarah's design systems course completely transformed how I approach my work. The methodical breakdown of complex concepts is unmatched."
+                    </p>
+                    <div className="flex items-center gap-3">
                       <img 
-                        src="https://images.unsplash.com/photo-1494790108755-2616b15a5b26?w=40&h=40&fit=crop&crop=face" 
-                        alt="Student" 
-                        className="w-8 h-8 rounded-full object-cover"
+                        src="https://images.unsplash.com/photo-1494790108755-2616b15a5b26?w=50&h=50&fit=crop&crop=face" 
+                        alt="Alex Thompson" 
+                        className="w-12 h-12 rounded-full object-cover"
                       />
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-1">
-                          <span className="text-white font-medium text-sm">Emily Rodriguez</span>
-                          <div className="flex gap-1">
-                            {[...Array(5)].map((_, i) => (
-                              <Star key={i} className="h-3 w-3 fill-yellow-400 text-yellow-400" />
-                            ))}
-                          </div>
-                        </div>
-                        <p className="text-gray-400 text-sm">
-                          "Sarah's design systems course completely transformed how I approach design. The practical examples and real-world projects made all the difference."
-                        </p>
+                      <div>
+                        <div className="text-white font-semibold text-sm">Alex Thompson</div>
+                        <div className="text-gray-400 text-sm">Senior Product Designer at Stripe</div>
                       </div>
                     </div>
                   </CardContent>
                 </Card>
 
-                <Card className="bg-gray-900 border-gray-800">
-                  <CardContent className="p-4">
-                    <div className="flex items-start gap-3 mb-3">
+                <Card className="bg-gray-900 border-gray-800 p-6">
+                  <CardContent className="p-0">
+                    <div className="flex gap-1 mb-4">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+                      ))}
+                    </div>
+                    <p className="text-gray-300 text-sm leading-relaxed mb-6 italic">
+                      "The practical examples and real-world applications made this course incredibly valuable. Best investment I've made in my career."
+                    </p>
+                    <div className="flex items-center gap-3">
                       <img 
-                        src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face" 
-                        alt="Student" 
-                        className="w-8 h-8 rounded-full object-cover"
+                        src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=50&h=50&fit=crop&crop=face" 
+                        alt="Maria Rodriguez" 
+                        className="w-12 h-12 rounded-full object-cover"
                       />
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-1">
-                          <span className="text-white font-medium text-sm">Michael Chen</span>
-                          <div className="flex gap-1">
-                            {[...Array(5)].map((_, i) => (
-                              <Star key={i} className="h-3 w-3 fill-yellow-400 text-yellow-400" />
-                            ))}
-                          </div>
-                        </div>
-                        <p className="text-gray-400 text-sm">
-                          "Best investment I've made in my career. The UX research fundamentals helped me land my dream job at a tech company."
-                        </p>
+                      <div>
+                        <div className="text-white font-semibold text-sm">Maria Rodriguez</div>
+                        <div className="text-gray-400 text-sm">UX Designer at Airbnb</div>
                       </div>
                     </div>
                   </CardContent>
                 </Card>
 
-                <Card className="bg-gray-900 border-gray-800">
-                  <CardContent className="p-4">
-                    <div className="flex items-start gap-3 mb-3">
+                <Card className="bg-gray-900 border-gray-800 p-6">
+                  <CardContent className="p-0">
+                    <div className="flex gap-1 mb-4">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+                      ))}
+                    </div>
+                    <p className="text-gray-300 text-sm leading-relaxed mb-6 italic">
+                      "Sarah's teaching style is exceptional. She breaks down complex design principles into digestible, actionable steps."
+                    </p>
+                    <div className="flex items-center gap-3">
                       <img 
-                        src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=40&h=40&fit=crop&crop=face" 
-                        alt="Student" 
-                        className="w-8 h-8 rounded-full object-cover"
+                        src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=50&h=50&fit=crop&crop=face" 
+                        alt="David Kim" 
+                        className="w-12 h-12 rounded-full object-cover"
                       />
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-1">
-                          <span className="text-white font-medium text-sm">Sarah Kim</span>
-                          <div className="flex gap-1">
-                            {[...Array(4)].map((_, i) => (
-                              <Star key={i} className="h-3 w-3 fill-yellow-400 text-yellow-400" />
-                            ))}
-                            <Star className="h-3 w-3 text-gray-600" />
-                          </div>
-                        </div>
-                        <p className="text-gray-400 text-sm">
-                          "Great content and well-structured lessons. Sarah explains complex concepts in a way that's easy to understand and apply."
-                        </p>
+                      <div>
+                        <div className="text-white font-semibold text-sm">David Kim</div>
+                        <div className="text-gray-400 text-sm">Product Designer at Google</div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card className="bg-gray-900 border-gray-800 p-6">
+                  <CardContent className="p-0">
+                    <div className="flex gap-1 mb-4">
+                      {[...Array(4)].map((_, i) => (
+                        <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+                      ))}
+                      <Star className="h-5 w-5 text-gray-600" />
+                    </div>
+                    <p className="text-gray-300 text-sm leading-relaxed mb-6 italic">
+                      "Great content and comprehensive curriculum. The course helped me transition from visual design to UX strategy."
+                    </p>
+                    <div className="flex items-center gap-3">
+                      <img 
+                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=50&h=50&fit=crop&crop=face" 
+                        alt="James Wilson" 
+                        className="w-12 h-12 rounded-full object-cover"
+                      />
+                      <div>
+                        <div className="text-white font-semibold text-sm">James Wilson</div>
+                        <div className="text-gray-400 text-sm">Design Lead at Spotify</div>
                       </div>
                     </div>
                   </CardContent>
