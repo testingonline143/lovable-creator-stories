@@ -96,6 +96,28 @@ const CreatorOnboarding = ({ onCreatorCreated }: CreatorOnboardingProps) => {
 
       const slug = formData.slug || generateSlug(formData.name);
       
+      // Check if slug is already taken
+      const { data: existingSlug } = await supabase
+        .from('creators')
+        .select('slug')
+        .eq('slug', slug)
+        .single();
+
+      if (existingSlug) {
+        throw new Error('This slug is already taken. Please choose a different one.');
+      }
+
+      // Check if user already has a creator profile
+      const { data: existingCreator } = await supabase
+        .from('creators')
+        .select('id')
+        .eq('user_id', user.id)
+        .single();
+
+      if (existingCreator) {
+        throw new Error('You already have a creator profile.');
+      }
+
       const { data, error } = await supabase
         .from('creators')
         .insert({
@@ -113,7 +135,11 @@ const CreatorOnboarding = ({ onCreatorCreated }: CreatorOnboardingProps) => {
 
       if (error) {
         if (error.code === '23505') {
-          throw new Error('This slug is already taken. Please choose a different one.');
+          if (error.message.includes('creators_user_id_key')) {
+            throw new Error('You already have a creator profile.');
+          } else if (error.message.includes('creators_slug_key')) {
+            throw new Error('This slug is already taken. Please choose a different one.');
+          }
         }
         throw error;
       }
