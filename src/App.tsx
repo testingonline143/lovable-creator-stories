@@ -23,7 +23,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/auth" element={<Auth />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard/*" element={<Dashboard />} />
           <Route path="/creators" element={<CreatorDirectory />} />
           <Route path="/creator/:creatorId" element={<CreatorPublicPage />} />
           <Route path="/public/:creatorId" element={<CreatorPublicPage />} />

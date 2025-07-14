@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { User, Session } from '@supabase/supabase-js';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/components/ui/use-toast';
-import { LogOut, Settings, Eye, ExternalLink } from 'lucide-react';
+import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
+import { DashboardSidebar } from '@/components/DashboardSidebar';
+import Overview from './dashboard/Overview';
+import Profile from './dashboard/Profile';
+import Revenue from './dashboard/Revenue';
+import Courses from './dashboard/Courses';
 import CreatorOnboarding from '@/components/CreatorOnboarding';
 
 interface Creator {
@@ -126,12 +129,7 @@ const Dashboard = () => {
             <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
               Welcome to CreatorStory
             </h1>
-            <Button variant="outline" onClick={handleSignOut}>
-              <LogOut className="mr-2 h-4 w-4" />
-              Sign Out
-            </Button>
           </div>
-          
           <CreatorOnboarding onCreatorCreated={handleCreatorCreated} />
         </div>
       </div>
@@ -139,120 +137,30 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary/10 via-background to-secondary/10">
-      <div className="container mx-auto px-4 py-8">
-        <div className="flex justify-between items-center mb-8">
-          <div>
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-              Creator Dashboard
-            </h1>
-            <p className="text-muted-foreground mt-1">
-              Welcome back, {creator.name}
-            </p>
+    <SidebarProvider>
+      <div className="min-h-screen flex w-full">
+        <DashboardSidebar onSignOut={handleSignOut} creator={creator} />
+        <main className="flex-1 bg-gradient-to-br from-primary/5 via-background to-secondary/5">
+          <header className="border-b border-border bg-background/80 backdrop-blur-md sticky top-0 z-40">
+            <div className="flex items-center gap-4 px-6 py-4">
+              <SidebarTrigger />
+              <h2 className="text-lg font-semibold">Creator Dashboard</h2>
+            </div>
+          </header>
+          <div className="p-6">
+            <Routes>
+              <Route path="/" element={<Overview />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/revenue" element={<Revenue />} />
+              <Route path="/courses" element={<Courses />} />
+              <Route path="/stories" element={<div className="text-center py-12"><p className="text-muted-foreground">Success Stories - Coming Soon</p></div>} />
+              <Route path="/analytics" element={<div className="text-center py-12"><p className="text-muted-foreground">Analytics - Coming Soon</p></div>} />
+              <Route path="/settings" element={<div className="text-center py-12"><p className="text-muted-foreground">Settings - Coming Soon</p></div>} />
+            </Routes>
           </div>
-          <div className="flex gap-2">
-            {creator.is_public && (
-              <Button
-                variant="outline"
-                onClick={() => navigate(`/creator/${creator.slug}`)}
-              >
-                <Eye className="mr-2 h-4 w-4" />
-                View Public Page
-              </Button>
-            )}
-            <Button variant="outline" onClick={handleSignOut}>
-              <LogOut className="mr-2 h-4 w-4" />
-              Sign Out
-            </Button>
-          </div>
-        </div>
-
-        <div className="grid gap-6">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Settings className="h-5 w-5" />
-                Profile Overview
-              </CardTitle>
-              <CardDescription>
-                Manage your creator profile and public page settings
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <h3 className="font-semibold mb-2">Basic Information</h3>
-                  <div className="space-y-2 text-sm">
-                    <p><strong>Name:</strong> {creator.name}</p>
-                    <p><strong>Title:</strong> {creator.title || 'Not set'}</p>
-                    <p><strong>Location:</strong> {creator.location || 'Not set'}</p>
-                    <p><strong>Website:</strong> {creator.website || 'Not set'}</p>
-                  </div>
-                </div>
-                <div>
-                  <h3 className="font-semibold mb-2">Profile Status</h3>
-                  <div className="space-y-2 text-sm">
-                    <p>
-                      <strong>Public Status:</strong>{' '}
-                      <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs ${
-                        creator.is_public 
-                          ? 'bg-green-100 text-green-800' 
-                          : 'bg-yellow-100 text-yellow-800'
-                      }`}>
-                        {creator.is_public ? 'Live' : 'Draft'}
-                      </span>
-                    </p>
-                    <p><strong>Slug:</strong> {creator.slug || 'Not set'}</p>
-                    {creator.is_public && (
-                      <p>
-                        <strong>Public URL:</strong>{' '}
-                        <a 
-                          href={`/creator/${creator.slug}`}
-                          className="text-primary hover:underline inline-flex items-center gap-1"
-                        >
-                          /creator/{creator.slug}
-                          <ExternalLink className="h-3 w-3" />
-                        </a>
-                      </p>
-                    )}
-                  </div>
-                </div>
-              </div>
-              
-              {creator.bio && (
-                <div className="mt-6">
-                  <h3 className="font-semibold mb-2">Bio</h3>
-                  <p className="text-sm text-muted-foreground">{creator.bio}</p>
-                </div>
-              )}
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>Quick Actions</CardTitle>
-              <CardDescription>
-                Manage your creator profile and settings
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-wrap gap-4">
-                <Button variant="outline" disabled>
-                  <Settings className="mr-2 h-4 w-4" />
-                  Edit Profile (Coming Soon)
-                </Button>
-                <Button variant="outline" disabled>
-                  Add Success Story (Coming Soon)
-                </Button>
-                <Button variant="outline" disabled>
-                  Analytics (Coming Soon)
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+        </main>
       </div>
-    </div>
+    </SidebarProvider>
   );
 };
 
