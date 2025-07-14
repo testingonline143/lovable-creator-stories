@@ -36,6 +36,14 @@ const Profile = () => {
     slug: '',
     avatar_url: '',
     cover_image_url: '',
+    monthly_revenue: 0,
+    total_students: 0,
+    total_courses: 0,
+    year_started: new Date().getFullYear(),
+    badge_text: 'Creator',
+    twitter_handle: '',
+    linkedin_url: '',
+    achievements: [] as string[],
   });
   const { toast } = useToast();
 
@@ -69,6 +77,14 @@ const Profile = () => {
         slug: data.slug || '',
         avatar_url: data.avatar_url || '',
         cover_image_url: data.cover_image_url || '',
+        monthly_revenue: data.monthly_revenue || 0,
+        total_students: data.total_students || 0,
+        total_courses: data.total_courses || 0,
+        year_started: data.year_started || new Date().getFullYear(),
+        badge_text: data.badge_text || 'Creator',
+        twitter_handle: data.twitter_handle || '',
+        linkedin_url: data.linkedin_url || '',
+        achievements: data.achievements || [],
       });
     } catch (error) {
       console.error('Error fetching creator data:', error);
@@ -78,10 +94,24 @@ const Profile = () => {
   };
 
   const handleInputChange = (field: string, value: string) => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: value,
-    }));
+    setFormData(prev => {
+      if (field === 'achievements') {
+        return {
+          ...prev,
+          [field]: value.split('\n').filter(line => line.trim() !== ''),
+        };
+      }
+      if (['monthly_revenue', 'total_students', 'total_courses', 'year_started'].includes(field)) {
+        return {
+          ...prev,
+          [field]: parseInt(value) || 0,
+        };
+      }
+      return {
+        ...prev,
+        [field]: value,
+      };
+    });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -101,6 +131,14 @@ const Profile = () => {
           slug: formData.slug,
           avatar_url: formData.avatar_url,
           cover_image_url: formData.cover_image_url,
+          monthly_revenue: formData.monthly_revenue,
+          total_students: formData.total_students,
+          total_courses: formData.total_courses,
+          year_started: formData.year_started,
+          badge_text: formData.badge_text,
+          twitter_handle: formData.twitter_handle,
+          linkedin_url: formData.linkedin_url,
+          achievements: formData.achievements,
         })
         .eq('id', creator.id);
 
@@ -340,6 +378,112 @@ const Profile = () => {
                   onChange={(e) => handleInputChange('cover_image_url', e.target.value)}
                   placeholder="https://example.com/cover.jpg"
                 />
+              </div>
+            </div>
+
+            {/* Statistics Section */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold border-b pb-2">Profile Statistics</h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="space-y-2">
+                  <Label htmlFor="monthly_revenue">Monthly Revenue ($)</Label>
+                  <Input
+                    id="monthly_revenue"
+                    type="number"
+                    value={formData.monthly_revenue}
+                    onChange={(e) => handleInputChange('monthly_revenue', e.target.value)}
+                    placeholder="0"
+                    min="0"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="total_students">Total Students</Label>
+                  <Input
+                    id="total_students"
+                    type="number"
+                    value={formData.total_students}
+                    onChange={(e) => handleInputChange('total_students', e.target.value)}
+                    placeholder="0"
+                    min="0"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="total_courses">Total Courses</Label>
+                  <Input
+                    id="total_courses"
+                    type="number"
+                    value={formData.total_courses}
+                    onChange={(e) => handleInputChange('total_courses', e.target.value)}
+                    placeholder="0"
+                    min="0"
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <Label htmlFor="year_started">Teaching Since (Year)</Label>
+                  <Input
+                    id="year_started"
+                    type="number"
+                    value={formData.year_started}
+                    onChange={(e) => handleInputChange('year_started', e.target.value)}
+                    placeholder="2020"
+                    min="1980"
+                    max={new Date().getFullYear()}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="badge_text">Badge Text</Label>
+                  <Input
+                    id="badge_text"
+                    value={formData.badge_text}
+                    onChange={(e) => handleInputChange('badge_text', e.target.value)}
+                    placeholder="Creator"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Social Media Section */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold border-b pb-2">Social Media Links</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <Label htmlFor="twitter_handle">Twitter Handle</Label>
+                  <Input
+                    id="twitter_handle"
+                    value={formData.twitter_handle}
+                    onChange={(e) => handleInputChange('twitter_handle', e.target.value)}
+                    placeholder="@yourusername"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="linkedin_url">LinkedIn URL</Label>
+                  <Input
+                    id="linkedin_url"
+                    value={formData.linkedin_url}
+                    onChange={(e) => handleInputChange('linkedin_url', e.target.value)}
+                    placeholder="https://linkedin.com/in/yourprofile"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Achievements Section */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold border-b pb-2">Achievements</h3>
+              <div className="space-y-2">
+                <Label htmlFor="achievements">Achievements (one per line)</Label>
+                <Textarea
+                  id="achievements"
+                  value={formData.achievements.join('\n')}
+                  onChange={(e) => handleInputChange('achievements', e.target.value)}
+                  placeholder="Built 3 successful companies&#10;Generated $2M+ in business revenue&#10;Mentored 500+ entrepreneurs"
+                  rows={4}
+                />
+                <p className="text-xs text-muted-foreground">
+                  Enter each achievement on a new line. These will appear as bullet points on your profile.
+                </p>
               </div>
             </div>
 

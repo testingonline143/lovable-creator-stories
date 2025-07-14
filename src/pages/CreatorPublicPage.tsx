@@ -1,24 +1,84 @@
 import { useParams, Link } from "react-router-dom";
-import { creators } from "@/data/creators";
+import { useState, useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ArrowLeft, MessageCircle, ExternalLink, MapPin, Calendar, Users, Star, Clock, Play, TrendingUp, DollarSign, Award } from "lucide-react";
+import { ArrowLeft, MessageCircle, ExternalLink, MapPin, Calendar, Users, Star, TrendingUp, DollarSign, Award } from "lucide-react";
+
+interface Creator {
+  id: string;
+  name: string;
+  title: string;
+  bio: string;
+  location: string;
+  website: string;
+  avatar_url: string;
+  cover_image_url: string;
+  monthly_revenue: number;
+  total_students: number;
+  total_courses: number;
+  year_started: number;
+  badge_text: string;
+  twitter_handle: string;
+  linkedin_url: string;
+  achievements: string[];
+}
 
 const CreatorPublicPage = () => {
   const { creatorId } = useParams();
-  const creator = creators.find(c => c.id === creatorId);
+  const [creator, setCreator] = useState<Creator | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchCreator = async () => {
+      if (!creatorId) return;
+      
+      try {
+        const { data, error } = await supabase
+          .from('creators')
+          .select('*')
+          .eq('slug', creatorId)
+          .eq('is_public', true)
+          .single();
+
+        if (error) {
+          console.error('Error fetching creator:', error);
+          return;
+        }
+
+        setCreator(data);
+      } catch (error) {
+        console.error('Error fetching creator:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchCreator();
+  }, [creatorId]);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-muted-foreground">Loading profile...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!creator) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-bold mb-4">Creator Not Found</h1>
-          <Link to="/creators">
+          <Link to="/">
             <Button variant="outline">
               <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Creators
+              Back to Home
             </Button>
           </Link>
         </div>
@@ -26,15 +86,13 @@ const CreatorPublicPage = () => {
     );
   }
 
-  const allCourses = creator.recentCourses || [];
-
   return (
     <div className="min-h-screen bg-background">
       {/* Back Navigation */}
       <div className="p-4">
-        <Link to="/creators" className="flex items-center text-gray-400 text-sm">
+        <Link to="/" className="flex items-center text-gray-400 text-sm">
           <ArrowLeft className="h-4 w-4 mr-2" />
-          Back to Creators
+          Back to Home
         </Link>
       </div>
 
@@ -43,7 +101,9 @@ const CreatorPublicPage = () => {
         <div 
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: `url(https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=400&fit=crop)`
+            backgroundImage: creator.cover_image_url 
+              ? `url(${creator.cover_image_url})` 
+              : `url(https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=400&fit=crop)`
           }}
         >
           <div className="absolute inset-0 bg-black/50"></div>
@@ -53,15 +113,15 @@ const CreatorPublicPage = () => {
         <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
           <div className="flex items-center gap-3 mb-3">
             <img 
-              src={creator.image} 
+              src={creator.avatar_url || "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=400&fit=crop&crop=face"} 
               alt={creator.name}
               className="w-12 h-12 rounded-full border-2 border-white object-cover"
             />
             <div className="flex items-center gap-2">
               <span className="text-2xl font-bold">{creator.name}</span>
-                <Badge className="bg-gradient-to-r from-primary to-accent text-primary-foreground text-xs">
-                  {creator.badge}
-                </Badge>
+              <Badge className="bg-gradient-to-r from-primary to-accent text-primary-foreground text-xs">
+                {creator.badge_text}
+              </Badge>
             </div>
           </div>
           
@@ -76,13 +136,13 @@ const CreatorPublicPage = () => {
             </div>
             <div className="flex items-center gap-1">
               <Calendar className="h-3 w-3" />
-              Teaching since {creator.yearStarted}
+              Teaching since {creator.year_started}
             </div>
           </div>
 
           <div className="flex items-center gap-4 text-xs text-gray-300 mb-4">
             {creator.website && <span>🌐 {creator.website}</span>}
-            {creator.twitter && <span>🐦 {creator.twitter}</span>}
+            {creator.twitter_handle && <span>🐦 {creator.twitter_handle}</span>}
           </div>
 
           {/* Action Buttons */}
@@ -91,10 +151,12 @@ const CreatorPublicPage = () => {
               <MessageCircle className="mr-2 h-4 w-4" />
               Contact
             </Button>
-            <Button variant="outline" className="border-white/30 text-white hover:bg-white/10 text-sm px-6">
-              <ExternalLink className="mr-2 h-4 w-4" />
-              Visit Website
-            </Button>
+            {creator.website && (
+              <Button variant="outline" className="border-white/30 text-white hover:bg-white/10 text-sm px-6">
+                <ExternalLink className="mr-2 h-4 w-4" />
+                Visit Website
+              </Button>
+            )}
           </div>
         </div>
       </div>
@@ -103,19 +165,19 @@ const CreatorPublicPage = () => {
       <div className="p-4">
         <div className="flex gap-4 overflow-x-auto pb-2">
           <div className="text-center min-w-[100px] flex-shrink-0">
-            <div className="text-2xl font-bold text-green-400">${(creator.monthlyRevenue * 12).toLocaleString()}</div>
+            <div className="text-2xl font-bold text-green-400">${(creator.monthly_revenue * 12).toLocaleString()}</div>
             <div className="text-xs text-gray-400">Total Revenue</div>
           </div>
           <div className="text-center min-w-[100px] flex-shrink-0">
-            <div className="text-2xl font-bold text-primary">${creator.monthlyRevenue.toLocaleString()}</div>
+            <div className="text-2xl font-bold text-primary">${creator.monthly_revenue.toLocaleString()}</div>
             <div className="text-xs text-gray-400">Monthly Revenue</div>
           </div>
           <div className="text-center min-w-[100px] flex-shrink-0">
-            <div className="text-2xl font-bold text-pink-400">{creator.totalStudents.toLocaleString()}</div>
+            <div className="text-2xl font-bold text-pink-400">{creator.total_students.toLocaleString()}</div>
             <div className="text-xs text-gray-400">Total Students</div>
           </div>
           <div className="text-center min-w-[100px] flex-shrink-0">
-            <div className="text-2xl font-bold text-white">{creator.courses}</div>
+            <div className="text-2xl font-bold text-white">{creator.total_courses}</div>
             <div className="text-xs text-gray-400">Courses Created</div>
           </div>
           <div className="text-center min-w-[100px] flex-shrink-0">
@@ -134,14 +196,8 @@ const CreatorPublicPage = () => {
 
       {/* Functional Tabs */}
       <div className="px-4">
-        <Tabs defaultValue="courses" className="w-full">
-          <TabsList className="grid w-full grid-cols-4 bg-transparent border-b border-gray-800 rounded-none h-auto p-0 mb-8">
-            <TabsTrigger 
-              value="courses" 
-              className="pb-4 pt-2 font-medium text-base border-b-2 border-transparent data-[state=active]:border-white data-[state=active]:text-white text-gray-500 bg-transparent rounded-none hover:text-gray-300 transition-colors"
-            >
-              Courses & Coaching
-            </TabsTrigger>
+        <Tabs defaultValue="journey" className="w-full">
+          <TabsList className="grid w-full grid-cols-3 bg-transparent border-b border-gray-800 rounded-none h-auto p-0 mb-8">
             <TabsTrigger 
               value="journey" 
               className="pb-4 pt-2 font-medium text-base border-b-2 border-transparent data-[state=active]:border-white data-[state=active]:text-white text-gray-500 bg-transparent rounded-none hover:text-gray-300 transition-colors"
@@ -155,84 +211,12 @@ const CreatorPublicPage = () => {
               Revenue
             </TabsTrigger>
             <TabsTrigger 
-              value="reviews" 
+              value="achievements" 
               className="pb-4 pt-2 font-medium text-base border-b-2 border-transparent data-[state=active]:border-white data-[state=active]:text-white text-gray-500 bg-transparent rounded-none hover:text-gray-300 transition-colors"
             >
-              Reviews
+              Achievements
             </TabsTrigger>
           </TabsList>
-
-          {/* Courses & Coaching Content */}
-          <TabsContent value="courses" className="mt-0">
-            <div className="p-4 space-y-8">
-              <div className="text-center">
-                <h2 className="text-3xl font-bold text-white mb-4">
-                  Courses & <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Coaching Programs</span>
-                </h2>
-                <p className="text-gray-400 text-base">
-                  Comprehensive education designed to level up your design career
-                </p>
-              </div>
-
-              {/* Course Grid - Horizontal Layout */}
-              <div className="overflow-x-auto">
-                <div className="flex gap-6 pb-4">
-                  {allCourses.map((course, index) => (
-                    <div key={course.id} className="flex-shrink-0 w-96">
-                      <Card className="bg-gray-900 border-gray-800 shadow-lg overflow-hidden h-full">
-                        <div className="relative">
-                          <img 
-                            src={course.thumbnail}
-                            alt={course.title}
-                            className="w-full h-48 object-cover"
-                          />
-                          <Badge className="absolute top-4 left-4 text-white text-xs font-medium px-3 py-1 bg-purple-600">
-                            {course.category}
-                          </Badge>
-                          <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
-                            <Button size="sm" className="bg-purple-600 hover:bg-purple-700 text-white h-14 w-14 rounded-full p-0">
-                              <Play className="h-6 w-6 ml-0.5" />
-                            </Button>
-                          </div>
-                        </div>
-                        
-                        <CardContent className="p-6">
-                          <h3 className="text-xl font-bold text-purple-400 mb-4 leading-tight">
-                            {course.title}
-                          </h3>
-                          <p className="text-gray-400 text-sm mb-6 leading-relaxed">
-                            {course.description}
-                          </p>
-                          
-                          <div className="flex items-center gap-6 text-sm text-gray-400 mb-6">
-                            <div className="flex items-center gap-2">
-                              <Users className="h-4 w-4" />
-                              <span>{course.students.toLocaleString()}</span>
-                            </div>
-                            <Badge variant="secondary" className="text-xs bg-gray-800 text-gray-300 px-3 py-1">
-                              {course.category}
-                            </Badge>
-                          </div>
-                          
-                           <div className="flex items-center justify-between">
-                             <div className="flex items-center gap-2">
-                               <div className="flex items-center gap-1">
-                                 <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                                 <span className="font-semibold text-yellow-400 text-base">{course.rating}</span>
-                               </div>
-                             </div>
-                             <div className="text-2xl font-bold text-purple-400">
-                               ${course.price}
-                             </div>
-                           </div>
-                        </CardContent>
-                      </Card>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </TabsContent>
 
           {/* Journey Content */}
           <TabsContent value="journey" className="mt-0">
@@ -242,7 +226,7 @@ const CreatorPublicPage = () => {
                   The <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Journey</span>
                 </h2>
                 <p className="text-gray-400 text-base">
-                  From zero to $847,000 - the complete story
+                  From zero to ${creator.monthly_revenue.toLocaleString()}/month - the complete story
                 </p>
               </div>
 
@@ -257,12 +241,12 @@ const CreatorPublicPage = () => {
                         <div className="flex justify-between items-start mb-2">
                           <div>
                             <h3 className="text-xl font-bold text-white mb-1">Started Teaching Online</h3>
-                            <div className="text-sm text-gray-400">January 2022</div>
+                            <div className="text-sm text-gray-400">{creator.year_started}</div>
                           </div>
                           <div className="text-2xl font-bold text-green-400">$0/mo</div>
                         </div>
                         <p className="text-gray-400 text-sm leading-relaxed">
-                          Left my senior UX role at Uber to focus on education full-time
+                          Started my journey as an educator and content creator
                         </p>
                       </div>
                     </div>
@@ -273,40 +257,18 @@ const CreatorPublicPage = () => {
                   <CardContent className="p-6">
                     <div className="flex items-start gap-4">
                       <div className="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
-                        <Play className="h-6 w-6 text-white" />
+                        <TrendingUp className="h-6 w-6 text-white" />
                       </div>
                       <div className="flex-1">
                         <div className="flex justify-between items-start mb-2">
                           <div>
-                            <h3 className="text-xl font-bold text-white mb-1">First Course Launch</h3>
-                            <div className="text-sm text-gray-400">March 2022</div>
+                            <h3 className="text-xl font-bold text-white mb-1">Current Status</h3>
+                            <div className="text-sm text-gray-400">Today</div>
                           </div>
-                          <div className="text-2xl font-bold text-green-400">$15,000/mo</div>
+                          <div className="text-2xl font-bold text-green-400">${creator.monthly_revenue.toLocaleString()}/mo</div>
                         </div>
                         <p className="text-gray-400 text-sm leading-relaxed">
-                          Design Systems Masterclass - sold 100 copies in first week
-                        </p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card className="bg-gray-900 border-gray-800">
-                  <CardContent className="p-6">
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
-                        <Award className="h-6 w-6 text-white" />
-                      </div>
-                      <div className="flex-1">
-                        <div className="flex justify-between items-start mb-2">
-                          <div>
-                            <h3 className="text-xl font-bold text-white mb-1">Hit $10K/month</h3>
-                            <div className="text-sm text-gray-400">August 2022</div>
-                          </div>
-                          <div className="text-2xl font-bold text-green-400">$12,000/mo</div>
-                        </div>
-                        <p className="text-gray-400 text-sm leading-relaxed">
-                          Consistent growth through word-of-mouth and social media
+                          Reached {creator.total_students.toLocaleString()} students across {creator.total_courses} courses
                         </p>
                       </div>
                     </div>
@@ -332,35 +294,35 @@ const CreatorPublicPage = () => {
                 <Card className="bg-gray-900 border-gray-800">
                   <CardContent className="p-4 text-center">
                     <TrendingUp className="h-6 w-6 text-green-400 mx-auto mb-2" />
-                    <div className="text-2xl font-bold text-green-400">32%</div>
-                    <div className="text-xs text-gray-400">Growth Rate</div>
+                    <div className="text-2xl font-bold text-green-400">${creator.monthly_revenue.toLocaleString()}</div>
+                    <div className="text-xs text-gray-400">Monthly Revenue</div>
                   </CardContent>
                 </Card>
                 
                 <Card className="bg-gray-900 border-gray-800">
                   <CardContent className="p-4 text-center">
                     <DollarSign className="h-6 w-6 text-primary mx-auto mb-2" />
-                    <div className="text-2xl font-bold text-primary">$67K</div>
-                    <div className="text-xs text-gray-400">Monthly Average</div>
+                    <div className="text-2xl font-bold text-primary">${(creator.monthly_revenue * 12).toLocaleString()}</div>
+                    <div className="text-xs text-gray-400">Annual Revenue</div>
                   </CardContent>
                 </Card>
               </div>
 
               <Card className="bg-gray-900 border-gray-800">
                 <CardContent className="p-4">
-                  <h3 className="text-white font-semibold mb-3">Revenue Breakdown</h3>
+                  <h3 className="text-white font-semibold mb-3">Creator Stats</h3>
                   <div className="space-y-3">
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-400 text-sm">Course Sales</span>
-                      <span className="text-white font-medium">$620,000 (73%)</span>
+                      <span className="text-gray-400 text-sm">Total Students</span>
+                      <span className="text-white font-medium">{creator.total_students.toLocaleString()}</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-400 text-sm">1:1 Coaching</span>
-                      <span className="text-white font-medium">$152,000 (18%)</span>
+                      <span className="text-gray-400 text-sm">Total Courses</span>
+                      <span className="text-white font-medium">{creator.total_courses}</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-400 text-sm">Workshops</span>
-                      <span className="text-white font-medium">$75,000 (9%)</span>
+                      <span className="text-gray-400 text-sm">Years Teaching</span>
+                      <span className="text-white font-medium">{new Date().getFullYear() - creator.year_started}</span>
                     </div>
                   </div>
                 </CardContent>
@@ -368,115 +330,39 @@ const CreatorPublicPage = () => {
             </div>
           </TabsContent>
 
-          {/* Reviews Content */}
-          <TabsContent value="reviews" className="mt-0">
+          {/* Achievements Content */}
+          <TabsContent value="achievements" className="mt-0">
             <div className="p-4 space-y-8">
               <div className="text-center">
                 <h2 className="text-3xl font-bold text-white mb-4">
-                  Student <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Testimonials</span>
+                  <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Achievements</span>
                 </h2>
                 <p className="text-gray-400 text-base">
-                  What students are saying about their transformation
+                  Key milestones and accomplishments
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Card className="bg-gray-900 border-gray-800 p-6">
-                  <CardContent className="p-0">
-                    <div className="flex gap-1 mb-4">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-                      ))}
-                    </div>
-                    <p className="text-gray-300 text-sm leading-relaxed mb-6 italic">
-                      "Sarah's design systems course completely transformed how I approach my work. The methodical breakdown of complex concepts is unmatched."
-                    </p>
-                    <div className="flex items-center gap-3">
-                      <img 
-                        src="https://images.unsplash.com/photo-1494790108755-2616b15a5b26?w=50&h=50&fit=crop&crop=face" 
-                        alt="Alex Thompson" 
-                        className="w-12 h-12 rounded-full object-cover"
-                      />
-                      <div>
-                        <div className="text-white font-semibold text-sm">Alex Thompson</div>
-                        <div className="text-gray-400 text-sm">Senior Product Designer at Stripe</div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card className="bg-gray-900 border-gray-800 p-6">
-                  <CardContent className="p-0">
-                    <div className="flex gap-1 mb-4">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-                      ))}
-                    </div>
-                    <p className="text-gray-300 text-sm leading-relaxed mb-6 italic">
-                      "The practical examples and real-world applications made this course incredibly valuable. Best investment I've made in my career."
-                    </p>
-                    <div className="flex items-center gap-3">
-                      <img 
-                        src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=50&h=50&fit=crop&crop=face" 
-                        alt="Maria Rodriguez" 
-                        className="w-12 h-12 rounded-full object-cover"
-                      />
-                      <div>
-                        <div className="text-white font-semibold text-sm">Maria Rodriguez</div>
-                        <div className="text-gray-400 text-sm">UX Designer at Airbnb</div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card className="bg-gray-900 border-gray-800 p-6">
-                  <CardContent className="p-0">
-                    <div className="flex gap-1 mb-4">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-                      ))}
-                    </div>
-                    <p className="text-gray-300 text-sm leading-relaxed mb-6 italic">
-                      "Sarah's teaching style is exceptional. She breaks down complex design principles into digestible, actionable steps."
-                    </p>
-                    <div className="flex items-center gap-3">
-                      <img 
-                        src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=50&h=50&fit=crop&crop=face" 
-                        alt="David Kim" 
-                        className="w-12 h-12 rounded-full object-cover"
-                      />
-                      <div>
-                        <div className="text-white font-semibold text-sm">David Kim</div>
-                        <div className="text-gray-400 text-sm">Product Designer at Google</div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card className="bg-gray-900 border-gray-800 p-6">
-                  <CardContent className="p-0">
-                    <div className="flex gap-1 mb-4">
-                      {[...Array(4)].map((_, i) => (
-                        <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-                      ))}
-                      <Star className="h-5 w-5 text-gray-600" />
-                    </div>
-                    <p className="text-gray-300 text-sm leading-relaxed mb-6 italic">
-                      "Great content and comprehensive curriculum. The course helped me transition from visual design to UX strategy."
-                    </p>
-                    <div className="flex items-center gap-3">
-                      <img 
-                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=50&h=50&fit=crop&crop=face" 
-                        alt="James Wilson" 
-                        className="w-12 h-12 rounded-full object-cover"
-                      />
-                      <div>
-                        <div className="text-white font-semibold text-sm">James Wilson</div>
-                        <div className="text-gray-400 text-sm">Design Lead at Spotify</div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
+              <div className="space-y-4">
+                {creator.achievements && creator.achievements.length > 0 ? (
+                  creator.achievements.map((achievement, index) => (
+                    <Card key={index} className="bg-gray-900 border-gray-800">
+                      <CardContent className="p-4">
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 bg-gradient-to-r from-primary to-accent rounded-full flex items-center justify-center flex-shrink-0">
+                            <Award className="h-4 w-4 text-white" />
+                          </div>
+                          <span className="text-white">{achievement}</span>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))
+                ) : (
+                  <Card className="bg-gray-900 border-gray-800">
+                    <CardContent className="p-6 text-center">
+                      <p className="text-gray-400">No achievements added yet.</p>
+                    </CardContent>
+                  </Card>
+                )}
               </div>
             </div>
           </TabsContent>

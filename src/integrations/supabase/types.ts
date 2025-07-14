@@ -16,52 +16,76 @@ export type Database = {
     Tables: {
       creators: {
         Row: {
+          achievements: string[] | null
           avatar_url: string | null
+          badge_text: string | null
           bio: string | null
           cover_image_url: string | null
           created_at: string
           id: string
           is_public: boolean | null
+          linkedin_url: string | null
           location: string | null
+          monthly_revenue: number | null
           name: string
           slug: string | null
           social_links: Json | null
           title: string | null
+          total_courses: number | null
+          total_students: number | null
+          twitter_handle: string | null
           updated_at: string
           user_id: string
           website: string | null
+          year_started: number | null
         }
         Insert: {
+          achievements?: string[] | null
           avatar_url?: string | null
+          badge_text?: string | null
           bio?: string | null
           cover_image_url?: string | null
           created_at?: string
           id?: string
           is_public?: boolean | null
+          linkedin_url?: string | null
           location?: string | null
+          monthly_revenue?: number | null
           name: string
           slug?: string | null
           social_links?: Json | null
           title?: string | null
+          total_courses?: number | null
+          total_students?: number | null
+          twitter_handle?: string | null
           updated_at?: string
           user_id: string
           website?: string | null
+          year_started?: number | null
         }
         Update: {
+          achievements?: string[] | null
           avatar_url?: string | null
+          badge_text?: string | null
           bio?: string | null
           cover_image_url?: string | null
           created_at?: string
           id?: string
           is_public?: boolean | null
+          linkedin_url?: string | null
           location?: string | null
+          monthly_revenue?: number | null
           name?: string
           slug?: string | null
           social_links?: Json | null
           title?: string | null
+          total_courses?: number | null
+          total_students?: number | null
+          twitter_handle?: string | null
           updated_at?: string
           user_id?: string
           website?: string | null
+          year_started?: number | null
         }
         Relationships: []
       }
