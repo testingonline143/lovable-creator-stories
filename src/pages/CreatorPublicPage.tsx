@@ -26,47 +26,7 @@ const CreatorPublicPage = () => {
     );
   }
 
-  const allCourses = [
-    {
-      id: "design-systems-masterclass",
-      title: "Complete Design Systems Masterclass",
-      description: "Learn to build scalable design systems from scratch. 40+ hours of content, real-world projects, and lifetime access.",
-      price: 299,
-      students: 4521,
-      hours: 42,
-      level: "Intermediate",
-      rating: 4.9,
-      reviews: 827,
-      thumbnail: "https://images.unsplash.com/photo-1558655146-9f40138c1ac9?w=400&h=250&fit=crop",
-      badge: "Popular"
-    },
-    {
-      id: "ux-research-fundamentals",
-      title: "UX Research Fundamentals",
-      description: "Master user research methods and turn insights into actionable design decisions.",
-      price: 199,
-      students: 3214,
-      hours: 28,
-      level: "Beginner",
-      rating: 4.8,
-      reviews: 542,
-      thumbnail: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=250&fit=crop",
-      badge: "Popular"
-    },
-    {
-      id: "figma-prototyping",
-      title: "Advanced Figma Prototyping",
-      description: "Create interactive prototypes that wow stakeholders and validate design decisions.",
-      price: 149,
-      students: 2890,
-      hours: 18,
-      level: "Advanced",
-      rating: 4.7,
-      reviews: 431,
-      thumbnail: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=400&h=250&fit=crop",
-      badge: "New"
-    }
-  ];
+  const allCourses = creator.recentCourses || [];
 
   return (
     <div className="min-h-screen bg-background">
@@ -98,32 +58,31 @@ const CreatorPublicPage = () => {
               className="w-12 h-12 rounded-full border-2 border-white object-cover"
             />
             <div className="flex items-center gap-2">
-              <span className="text-2xl font-bold">Sarah Chen</span>
-              <Badge className="bg-gradient-to-r from-primary to-accent text-primary-foreground text-xs">
-                Top Creator
-              </Badge>
+              <span className="text-2xl font-bold">{creator.name}</span>
+                <Badge className="bg-gradient-to-r from-primary to-accent text-primary-foreground text-xs">
+                  {creator.badge}
+                </Badge>
             </div>
           </div>
           
           <p className="text-gray-200 text-sm leading-relaxed mb-4">
-            UX Designer turned educator. Helping designers build systematic thinking and 
-            create better user experiences through comprehensive design systems.
+            {creator.bio}
           </p>
           
           <div className="flex items-center gap-4 text-xs text-gray-300 mb-4">
             <div className="flex items-center gap-1">
               <MapPin className="h-3 w-3" />
-              San Francisco, CA
+              {creator.location}
             </div>
             <div className="flex items-center gap-1">
               <Calendar className="h-3 w-3" />
-              Joined January 2022
+              Teaching since {creator.yearStarted}
             </div>
           </div>
 
           <div className="flex items-center gap-4 text-xs text-gray-300 mb-4">
-            <span>🌐 sarahchen.design</span>
-            <span>🐦 @sarahchenux</span>
+            {creator.website && <span>🌐 {creator.website}</span>}
+            {creator.twitter && <span>🐦 {creator.twitter}</span>}
           </div>
 
           {/* Action Buttons */}
@@ -144,19 +103,19 @@ const CreatorPublicPage = () => {
       <div className="p-4">
         <div className="flex gap-4 overflow-x-auto pb-2">
           <div className="text-center min-w-[100px] flex-shrink-0">
-            <div className="text-2xl font-bold text-green-400">$847,000</div>
+            <div className="text-2xl font-bold text-green-400">${(creator.monthlyRevenue * 12).toLocaleString()}</div>
             <div className="text-xs text-gray-400">Total Revenue</div>
           </div>
           <div className="text-center min-w-[100px] flex-shrink-0">
-            <div className="text-2xl font-bold text-primary">$67,000</div>
+            <div className="text-2xl font-bold text-primary">${creator.monthlyRevenue.toLocaleString()}</div>
             <div className="text-xs text-gray-400">Monthly Revenue</div>
           </div>
           <div className="text-center min-w-[100px] flex-shrink-0">
-            <div className="text-2xl font-bold text-pink-400">12,847</div>
+            <div className="text-2xl font-bold text-pink-400">{creator.totalStudents.toLocaleString()}</div>
             <div className="text-xs text-gray-400">Total Students</div>
           </div>
           <div className="text-center min-w-[100px] flex-shrink-0">
-            <div className="text-2xl font-bold text-white">12</div>
+            <div className="text-2xl font-bold text-white">{creator.courses}</div>
             <div className="text-xs text-gray-400">Courses Created</div>
           </div>
           <div className="text-center min-w-[100px] flex-shrink-0">
@@ -227,11 +186,8 @@ const CreatorPublicPage = () => {
                             alt={course.title}
                             className="w-full h-48 object-cover"
                           />
-                          <Badge className={`absolute top-4 left-4 text-white text-xs font-medium px-3 py-1 ${
-                            course.badge === 'Popular' ? 'bg-purple-600' : 
-                            course.badge === 'New' ? 'bg-red-500' : 'bg-green-500'
-                          }`}>
-                            {course.badge.toLowerCase()}
+                          <Badge className="absolute top-4 left-4 text-white text-xs font-medium px-3 py-1 bg-purple-600">
+                            {course.category}
                           </Badge>
                           <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
                             <Button size="sm" className="bg-purple-600 hover:bg-purple-700 text-white h-14 w-14 rounded-full p-0">
@@ -253,29 +209,22 @@ const CreatorPublicPage = () => {
                               <Users className="h-4 w-4" />
                               <span>{course.students.toLocaleString()}</span>
                             </div>
-                            <div className="flex items-center gap-2">
-                              <Clock className="h-4 w-4" />
-                              <span>{course.hours} hours</span>
-                            </div>
                             <Badge variant="secondary" className="text-xs bg-gray-800 text-gray-300 px-3 py-1">
-                              {course.level}
+                              {course.category}
                             </Badge>
                           </div>
                           
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-2">
-                              <div className="flex items-center gap-1">
-                                <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                                <span className="font-semibold text-yellow-400 text-base">{course.rating}</span>
-                              </div>
-                              <span className="text-sm text-gray-400">
-                                ({course.reviews} reviews)
-                              </span>
-                            </div>
-                            <div className="text-2xl font-bold text-purple-400">
-                              ${course.price}
-                            </div>
-                          </div>
+                           <div className="flex items-center justify-between">
+                             <div className="flex items-center gap-2">
+                               <div className="flex items-center gap-1">
+                                 <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                                 <span className="font-semibold text-yellow-400 text-base">{course.rating}</span>
+                               </div>
+                             </div>
+                             <div className="text-2xl font-bold text-purple-400">
+                               ${course.price}
+                             </div>
+                           </div>
                         </CardContent>
                       </Card>
                     </div>
