@@ -12,7 +12,7 @@ import Courses from './dashboard/Courses';
 import Stories from './dashboard/Stories';
 import StoryForm from './dashboard/StoryForm';
 import Analytics from './dashboard/Analytics';
-import CreatorOnboarding from '@/components/CreatorOnboarding';
+import CreatorOnboardingOptimized from '@/components/CreatorOnboardingOptimized';
 
 interface Creator {
   id: string;
