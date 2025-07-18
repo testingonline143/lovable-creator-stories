@@ -145,7 +145,7 @@ const Dashboard = () => {
               Welcome to CreatorStory
             </h1>
           </div>
-          <CreatorOnboarding onCreatorCreated={handleCreatorCreated} />
+          <CreatorOnboardingOptimized onCreatorCreated={handleCreatorCreated} />
         </div>
       </div>
     );
